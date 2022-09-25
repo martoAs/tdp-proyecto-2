@@ -2961,9 +2961,9 @@
 										"$ref": "AAAAAAGDZTU+TXdPIlg="
 									},
 									"font": "Arial;13;0",
-									"left": 235,
+									"left": 234,
 									"top": 306,
-									"width": 5.05908203125,
+									"width": 6.5,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -4347,9 +4347,9 @@
 											"font": "Arial;13;1",
 											"left": 101,
 											"top": 719,
-											"width": 71,
+											"width": 72.2490234375,
 											"height": 13,
-											"text": "LSD"
+											"text": "Psicodelico"
 										},
 										{
 											"_type": "LabelView",
@@ -4382,7 +4382,7 @@
 									"font": "Arial;13;0",
 									"left": 96,
 									"top": 712,
-									"width": 81,
+									"width": 82.2490234375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGDZUCpdPWfjjA="
@@ -4409,7 +4409,7 @@
 									"font": "Arial;13;0",
 									"left": 96,
 									"top": 737,
-									"width": 81,
+									"width": 82.2490234375,
 									"height": 10
 								},
 								{
@@ -4444,7 +4444,7 @@
 									"font": "Arial;13;0",
 									"left": 96,
 									"top": 747,
-									"width": 81,
+									"width": 82.2490234375,
 									"height": 10
 								},
 								{
@@ -4484,7 +4484,7 @@
 							"containerChangeable": true,
 							"left": 96,
 							"top": 712,
-							"width": 81,
+							"width": 82.2490234375,
 							"height": 45,
 							"nameCompartment": {
 								"$ref": "AAAAAAGDZUCpdPWei7A="
@@ -4544,7 +4544,7 @@
 											"top": 599,
 											"width": 63,
 											"height": 13,
-											"text": "Boca"
+											"text": "Futbol"
 										},
 										{
 											"_type": "LabelView",
@@ -7355,7 +7355,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "LSD",
+					"name": "Psicodelico",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -7389,7 +7389,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Boca",
+					"name": "Futbol",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
