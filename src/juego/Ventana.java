@@ -3,10 +3,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.GridLayout;
 import javax.swing.JToggleButton;
 import java.awt.Color;
 
@@ -30,6 +27,7 @@ public class Ventana {
 		});
 
 	}
+	
 	public Ventana() {
 		//initialize();
 	}

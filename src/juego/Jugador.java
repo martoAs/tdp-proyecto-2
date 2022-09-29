@@ -1,3 +1,4 @@
+package juego;
 
 public class Jugador {
 	private int puntaje;
