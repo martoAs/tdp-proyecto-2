@@ -1,3 +1,4 @@
+package juego;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -33,10 +34,6 @@ public class Ventana {
 		//initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 * @wbp.parser.entryPoint
-	 */
 	public void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 850, 900);

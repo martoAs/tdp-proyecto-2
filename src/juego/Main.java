@@ -1,3 +1,4 @@
+package juego;
 import java.awt.EventQueue;
 
 public class Main {

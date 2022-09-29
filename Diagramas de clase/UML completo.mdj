@@ -629,7 +629,7 @@
 											"top": 374,
 											"width": 199.77978515625,
 											"height": 13,
-											"text": "#tamaño: int",
+											"text": "#size: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8036,7 +8036,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGDWxdcVTFOoZE="
 							},
-							"name": "tamaño",
+							"name": "size",
 							"visibility": "protected",
 							"type": "int"
 						},

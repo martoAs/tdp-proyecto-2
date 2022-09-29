@@ -1,5 +1,8 @@
 package consumibles;
 
-public class Redondito {
-
+public class Redondito extends PowerUp{
+	
+	public Redondito() {
+		puntaje = 70;
+	}
 }
