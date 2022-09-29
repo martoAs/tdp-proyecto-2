@@ -1,4 +1,5 @@
+import javax.swing.JLabel;
 
-public class Celda {
+public class Celda extends JLabel{
 
 }
