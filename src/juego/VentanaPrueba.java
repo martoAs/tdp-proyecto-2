@@ -49,23 +49,26 @@ public class VentanaPrueba{
 		ic = new ImageIcon(newimg);  // transform it back
 		JLabel contentPane = new JLabel();
 		contentPane.setIcon( ic);
-		contentPane.setLayout( new BorderLayout() );
+		BorderLayout bl_contentPane = new BorderLayout();
+		bl_contentPane.setVgap(1000);
+		bl_contentPane.setHgap(10);
+		contentPane.setLayout( bl_contentPane );
 		frame.setContentPane( contentPane );
 		//JPanel panel = new JPanel();
 
 		//frame.getContentPane().add(panel);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
-		gridBagLayout.rowHeights = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
+		gridBagLayout.rowHeights = new int[] {tamCelda*3, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 
 		frame.getContentPane().setLayout(gridBagLayout);
 		Logica logica = new Logica();
 
-		for(int i = 0; i<20; i++){
-			for(int j = 0; j <20 ; j++){
-				Celda c = logica.getCelda(i,j);
+		for(int i = 1; i<20; i++){
+			for(int j = 1; j <21 ; j++){
+				Celda c = logica.getCelda(i,j-1);
 
 				GridBagConstraints gbc_c = new GridBagConstraints();
 				gbc_c.fill = GridBagConstraints.BOTH;
