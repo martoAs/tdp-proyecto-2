@@ -1,12 +1,10 @@
 package juego;
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,11 +43,30 @@ public class VentanaPrueba{
 		//Creacion del tablero
 		TableroGrafico tablero = new TableroGrafico();
 		frame.getContentPane().add(tablero);
-		
-		
-		tablero.cambiarCelda(0, 0, "images/cuerpo.png");
-		tablero.cambiarCelda(0, 1, "images/cuerpo.png");
-		tablero.cambiarCelda(0, 2, "images/cuerpo.png");
+//		GridBagLayout gridBagLayout = new GridBagLayout();
+//		gridBagLayout.columnWidths = new int[] {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40};
+//		gridBagLayout.rowHeights = new int[] {40, 40, 40, 40, 40,40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40};
+//		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
+//		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
+//		tablero.setLayout(gridBagLayout);
+//		Logica logica = new Logica();
+//
+//		for(int i = 0; i<20; i++){
+//			for(int j = 0; j <20 ; j++){
+//				Celda c = logica.getCelda(i,j);
+//
+//				GridBagConstraints gbc_tglbtnNewToggleButton2 = new GridBagConstraints();
+//				gbc_tglbtnNewToggleButton2.fill = GridBagConstraints.BOTH;
+//				gbc_tglbtnNewToggleButton2.gridx = i;
+//				gbc_tglbtnNewToggleButton2.gridy = j;
+//				tablero.add(c, gbc_tglbtnNewToggleButton2);
+//			}
+//		}
+		//this.repaint();
+		tablero.cambiarCelda(0, 0, "/images/cuerpo.png");
+		//tablero.cambiarCelda(0, 1, "images/cuerpo.png");
+		//tablero.cambiarCelda(0, 2, "images/cuerpo.png");
+
 	}
 	
 
@@ -63,12 +80,12 @@ public class VentanaPrueba{
 			int esquinaX = 50;
 			int esquinaY = 50;
 			
-			g.setColor(Color.black); //PONER ACA UNO OTRO DE LOS COLORES DEL FONDO
+			g.setColor(new Color(194,201,155)); //PONER ACA UNO OTRO DE LOS COLORES DEL FONDO
 			g.fillRect(esquinaX, esquinaY, anchoTablero , altoTablero);
 			
 			 for(int cols = 0; cols < columnas/2; cols++) {
 				for(int i= esquinaX; i < anchoTablero; i+=2*anchoCelda) { 
-					g.setColor(Color.white); //PONER ACA EL OTRO DE LOS COLORES DEL FONDO
+					g.setColor(new Color(202,209,161)); //PONER ACA EL OTRO DE LOS COLORES DEL FONDO
 					g.fillRect(i, esquinaY + (cols * 2 * altoCelda), anchoCelda, altoCelda); 
 					g.fillRect(i + anchoCelda, esquinaY + altoCelda + (cols * 2 * altoCelda), anchoCelda, altoCelda);
 				}
