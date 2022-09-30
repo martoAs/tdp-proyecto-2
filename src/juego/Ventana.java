@@ -49,11 +49,11 @@ public class Ventana {
 			for(int j = 0; j <20 ; j++){
 				Celda c = logica.getCelda(i,j);
 
-				GridBagConstraints gbc_tglbtnNewToggleButton2 = new GridBagConstraints();
-				gbc_tglbtnNewToggleButton2.fill = GridBagConstraints.BOTH;
-				gbc_tglbtnNewToggleButton2.gridx = i;
-				gbc_tglbtnNewToggleButton2.gridy = j;
-				frame.getContentPane().add(c, gbc_tglbtnNewToggleButton2);
+				GridBagConstraints gbc_c = new GridBagConstraints();
+				gbc_c.fill = GridBagConstraints.BOTH;
+				gbc_c.gridx = i;
+				gbc_c.gridy = j;
+				frame.getContentPane().add(c, gbc_c);
 			}
 		}
 

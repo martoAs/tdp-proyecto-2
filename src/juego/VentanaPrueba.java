@@ -2,12 +2,13 @@ package juego;
 import java.awt.*;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class VentanaPrueba{
 
@@ -16,6 +17,8 @@ public class VentanaPrueba{
 	private int columnas = 20;
 	private int altoVentana = 800;
 	private int anchoVentana = 800;
+
+	private int tamCelda = 40;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -39,16 +42,57 @@ public class VentanaPrueba{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.yellow);
 		frame.setVisible(true);
-		
-		//Creacion del tablero
-		TableroGrafico tablero = new TableroGrafico();
-		frame.getContentPane().add(tablero);
+
+		ImageIcon ic = new ImageIcon(VentanaPrueba.class.getResource("/images/TABLETO.jpg"));
+		Image image = ic.getImage(); // transform it
+		Image newimg = image.getScaledInstance(843, 900,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		ic = new ImageIcon(newimg);  // transform it back
+		JLabel contentPane = new JLabel();
+		contentPane.setIcon( ic);
+		contentPane.setLayout( new BorderLayout() );
+		frame.setContentPane( contentPane );
+		//JPanel panel = new JPanel();
+
+		//frame.getContentPane().add(panel);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
+		gridBagLayout.rowHeights = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
+
+		frame.getContentPane().setLayout(gridBagLayout);
+		Logica logica = new Logica();
+
+		for(int i = 0; i<20; i++){
+			for(int j = 0; j <20 ; j++){
+				Celda c = logica.getCelda(i,j);
+
+				GridBagConstraints gbc_c = new GridBagConstraints();
+				gbc_c.fill = GridBagConstraints.BOTH;
+				gbc_c.gridx = i;
+				gbc_c.gridy = j;
+				frame.getContentPane().add(c, gbc_c);
+			}
+		}
+		logica.getCelda(3,6).setImagen("");
+//		//Creacion del tablero
+//		TableroGrafico tablero = new TableroGrafico();
+//		//frame.getContentPane().add(tablero);
+//
 //		GridBagLayout gridBagLayout = new GridBagLayout();
 //		gridBagLayout.columnWidths = new int[] {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40};
 //		gridBagLayout.rowHeights = new int[] {40, 40, 40, 40, 40,40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40};
 //		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 //		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
-//		tablero.setLayout(gridBagLayout);
+//		frame.setContentPane(tablero);
+//		frame.getContentPane().setLayout(gridBagLayout);
+//		GridBagConstraints gbc_tglbtnNewToggleButton2 = new GridBagConstraints();
+//		gbc_tglbtnNewToggleButton2.fill = GridBagConstraints.BOTH;
+//		gbc_tglbtnNewToggleButton2.gridx = 0;
+//		gbc_tglbtnNewToggleButton2.gridy = 0;
+//		//frame.getContentPane().add(tablero,gbc_tglbtnNewToggleButton2 );
+//		frame.add(new JLabel("HIKAA"));
+
 //		Logica logica = new Logica();
 //
 //		for(int i = 0; i<20; i++){
@@ -59,14 +103,15 @@ public class VentanaPrueba{
 //				gbc_tglbtnNewToggleButton2.fill = GridBagConstraints.BOTH;
 //				gbc_tglbtnNewToggleButton2.gridx = i;
 //				gbc_tglbtnNewToggleButton2.gridy = j;
-//				tablero.add(c, gbc_tglbtnNewToggleButton2);
+//				frame.getContentPane().add(c, gbc_tglbtnNewToggleButton2);
 //			}
 //		}
 		//this.repaint();
-		tablero.cambiarCelda(0, 0, "/images/cuerpo.png");
+		//tablero.cambiarCelda(0, 0, "/images/cuerpo.png");
 		//tablero.cambiarCelda(0, 1, "images/cuerpo.png");
 		//tablero.cambiarCelda(0, 2, "images/cuerpo.png");
-
+		//logica.getCelda(3,6).setImagen("");
+		frame.repaint();
 	}
 	
 
@@ -94,13 +139,22 @@ public class VentanaPrueba{
 		}
 		
 		public void cambiarCelda(int posX, int posY, String pathImg){
-			
+			ClassLoader classLoader = getClass().getClassLoader();
+			URL resURL =  classLoader.getResource("/images/cuerpo.png");
+
 			try {
-				BufferedImage img = ImageIO.read(new File(pathImg));
+				File imgfile = new File(resURL.toURI());
+				//ImageIcon ic = new ImageIcon(VentanaPrueba.class.getResource(pathImg));
+				//Image image = ic.getImage(); // transform it
+				//Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+				//BufferedImage img = ImageIO.read(new File(pathImg));
+				Image img = ImageIO.read(imgfile);
 				Graphics g = getGraphics();
-				g.drawImage(img, posX * anchoCelda, posY * altoCelda, this);
+				g.drawImage(img, posX * anchoCelda, posY * altoCelda, null);
 			} catch(IOException e) {
 				System.out.println("Beware, se rompio lo que sea que lee los paths y los pasa a imagenes para el tablero");
+			} catch (URISyntaxException e) {
+				throw new RuntimeException(e);
 			}
 		}
 		
