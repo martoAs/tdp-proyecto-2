@@ -7,6 +7,8 @@ public class Logica {
 	protected int puntaje;
 	protected Celda[][] tablero;
 
+	protected Criatura criatura;
+
 	public Logica (int tam){
 		tablero = new Celda[20][20];
 		int es1 = 1;
@@ -30,6 +32,16 @@ public class Logica {
 			Celda p2 = new Celda("/images/pared.jpg",tam,i,19);
 			tablero[i][19] = p2;
 		}
+		criatura = new Criatura(this);
+
+
+	}
+	public void cambiarDireccion(char dir){
+		criatura.setDireccion(dir);
+
+	}
+	public void empezarJuego(){
+		criatura.start();
 
 	}
 	public void sumarPuntaje(int puntaje){

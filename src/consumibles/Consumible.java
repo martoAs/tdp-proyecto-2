@@ -8,6 +8,6 @@ public abstract class Consumible {
 	
 	public void afectarJugador(Criatura criatura) {
 		criatura.agrandarCriatura(size);
-		criatura.getTiene().sumarPuntaje(puntaje);
+		criatura.getControlador().sumarPuntaje(puntaje);
 	}
 }

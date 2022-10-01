@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,19 @@ public class VentanaPrueba{
 		});
 
 	}
-	
+//	public class myKeyAdapter extends keyAdapter{
+//		public void keyPressed(KeyEvent e){
+//			switch (e.getKeyCode()){
+//				case KeyEvent.VK_LEFT : logica.cambiarDireccion('a');
+//					break;
+//				case KeyEvent.VK_RIGHT: logica.cambiarDireccion('d');
+//					break;
+//				case KeyEvent.VK_UP: logica.cambiarDireccion('w');
+//					break;
+//				case KeyEvent.VK_DOWN: logica.cambiarDireccion('s');
+//					break;
+//			}
+//		}
 	public void inicializar() {
 		
 		//Inicializacion de la ventana
@@ -87,6 +100,9 @@ public class VentanaPrueba{
 		logica.getCelda(3,6).setImagen("/images/cuerpo.png");
 		logica.getCelda(3,7).setImagen("/images/cuerpo.png");
 		logica.getCelda(3,6).setImagen("");
+
+
+
 		//logica.getCelda(0,3).setImagen("");
 //		//Creacion del tablero
 //		TableroGrafico tablero = new TableroGrafico();

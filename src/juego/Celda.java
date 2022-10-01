@@ -12,15 +12,15 @@ public class Celda extends JLabel{
     protected boolean ocupada;
     protected Consumible consumible;
 
-    protected int x;
+    protected int xenTablero;
 
-    protected int y;
+    protected int yenTablero;
 
     public Celda(String img, int tam, int x, int y){
         imagen = img;
         tamanio = tam;
-        this.x = x;
-        this.y = y;
+        xenTablero = x;
+        yenTablero = y;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
         Image image = ic.getImage();
         Image newimg = image.getScaledInstance(tam, tam,  java.awt.Image.SCALE_SMOOTH);
@@ -45,6 +45,13 @@ public class Celda extends JLabel{
 
 
         this.setIcon(ic);
+        this.repaint();
+    }
+
+    public void setImagenFondo(){
+        if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
+        else setImagen("/images/celda2.jpg");
+
     }
 
     public boolean estaOcupada() {
@@ -67,4 +74,12 @@ public class Celda extends JLabel{
 
         return consumible != null;
     }
+    public int getXenTablero(){
+        return xenTablero;
+    }
+
+    public int getYenTablero(){
+        return yenTablero;
+    }
+
 }

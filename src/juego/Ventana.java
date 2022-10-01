@@ -58,8 +58,9 @@ public class Ventana {
 				tablero.add(c, gbc_c);
 			}
 		}
-		logica.getCelda(3,6).setImagen("/images/cuerpo.png");
-
+		//logica.getCelda(3,6).setImagen("/images/cuerpo.png");
+		System.out.println("Celda 15, 6: "+logica.getCelda(15,6).getX()+logica.getCelda(15,6).getY());
+		logica.empezarJuego();
 		/*for (int i = 0; i < filas; i++) {
 			JToggleButton tglbtnNewToggleButton = new JToggleButton("");
 			tglbtnNewToggleButton.setBackground(Color.GREEN);
