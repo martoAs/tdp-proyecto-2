@@ -1,15 +1,19 @@
 package juego;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import static java.awt.BorderLayout.*;
 
-public class Ventana {
+public class Ventana implements KeyListener {
 
 	private JFrame frame;
 	int filas = 20;
 	int columnas = 20;
 	int tamCelda = 35;
+	private Logica logica;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,7 +49,7 @@ public class Ventana {
 		frame.getContentPane().add(arriba, NORTH);
 		JLabel puntaje = new JLabel("PUNTAJE:");
 		arriba.add(puntaje);
-		Logica logica = new Logica(tamCelda);
+		logica = new Logica(tamCelda);
 
 		for(int i = 0; i<20; i++){
 			for(int j = 0; j <20 ; j++){
@@ -85,6 +89,31 @@ public class Ventana {
 		} */
 
 		frame.setVisible(true);
+		frame.addKeyListener(this);
+	}
+
+	@Override 
+	public void keyTyped(KeyEvent e) {
+
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println(e.getKeyChar());
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_UP:logica.cambiarDireccion('w');break;
+		case KeyEvent.VK_LEFT:logica.cambiarDireccion('a');break;
+		case KeyEvent.VK_DOWN:logica.cambiarDireccion('s');break;
+		case KeyEvent.VK_RIGHT:logica.cambiarDireccion('d');break;
+	}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
+		
 	}
 
 }

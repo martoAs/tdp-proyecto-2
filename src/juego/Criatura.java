@@ -32,7 +32,7 @@ public class Criatura extends Thread {
 			mover();
 			if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
 			try {
-				sleep(200);
+				sleep(500);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
@@ -77,7 +77,7 @@ public class Criatura extends Thread {
 			case 'w': {
 				if(cuerpo.getFirst().getYenTablero()>2){
 					Celda cabeza = cuerpo.getFirst();
-					int sgtY = cabeza.getYenTablero()+1;
+					int sgtY = cabeza.getYenTablero()-1;
 					//System.out.println(sgtX+"  "+cabeza.getYenTablero());
 					Celda nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);
 					nuevaCabeza.setImagen("/images/cuerpo.png");
@@ -90,7 +90,7 @@ public class Criatura extends Thread {
 			case 's': {// BANCO WASD
 				if(cuerpo.getFirst().getYenTablero()<18){
 					Celda cabeza = cuerpo.getFirst();
-					int sgtY = cabeza.getYenTablero()-1;
+					int sgtY = cabeza.getYenTablero()+1;
 					//System.out.println(sgtX+"  "+cabeza.getYenTablero());
 					Celda nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);
 					nuevaCabeza.setImagen("/images/cuerpo.png");
