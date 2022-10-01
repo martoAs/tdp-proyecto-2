@@ -1,19 +1,15 @@
 package juego;
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JToggleButton;
-import java.awt.Color;
-
+import javax.swing.*;
+import static java.awt.BorderLayout.*;
 
 public class Ventana {
 
 	private JFrame frame;
 	int filas = 20;
 	int columnas = 20;
-	
+	int tamCelda = 35;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,13 +33,19 @@ public class Ventana {
 		frame.setBounds(100, 100, 850, 900);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40};
-		gridBagLayout.rowHeights = new int[] {40, 40, 40, 40, 40,40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40};
+		gridBagLayout.columnWidths = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
+		gridBagLayout.rowHeights = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
-		
-		frame.getContentPane().setLayout(gridBagLayout);
-		Logica logica = new Logica();
+		JPanel tablero = new JPanel();
+		tablero.setLayout(gridBagLayout);
+		frame.getContentPane().setLayout(new BorderLayout());
+		frame.getContentPane().add(tablero, CENTER);
+		JPanel arriba = new JPanel();
+		frame.getContentPane().add(arriba, NORTH);
+		JLabel puntaje = new JLabel("PUNTAJE:");
+		arriba.add(puntaje);
+		Logica logica = new Logica(tamCelda);
 
 		for(int i = 0; i<20; i++){
 			for(int j = 0; j <20 ; j++){
@@ -53,9 +55,10 @@ public class Ventana {
 				gbc_c.fill = GridBagConstraints.BOTH;
 				gbc_c.gridx = i;
 				gbc_c.gridy = j;
-				frame.getContentPane().add(c, gbc_c);
+				tablero.add(c, gbc_c);
 			}
 		}
+		logica.getCelda(3,6).setImagen("/images/cuerpo.png");
 
 		/*for (int i = 0; i < filas; i++) {
 			JToggleButton tglbtnNewToggleButton = new JToggleButton("");

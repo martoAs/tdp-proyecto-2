@@ -7,16 +7,28 @@ public class Logica {
 	protected int puntaje;
 	protected Celda[][] tablero;
 
-	public Logica(){
+	public Logica (int tam){
 		tablero = new Celda[20][20];
-
-		for(int i = 0; i<20; i++){
-			for(int j = 0; j<20;j++){
-				Celda c = new Celda("/images/cuerpo.png");
+		int es1 = 1;
+		for(int j = 0; j<20; j++){
+			Celda p = new Celda("/images/pared.jpg",tam);
+			tablero[0][j] = p;
+			Celda p2 = new Celda("/images/pared.jpg",tam);
+			tablero[19][j] = p2;
+		}
+		for(int i = 1; i<19; i++){
+			Celda p = new Celda("/images/pared.jpg",tam);
+			tablero[i][0] = p;
+			es1 = 1 - es1;
+			for(int j = 1; j<19;j++){
+				String imagen = "/images/celda2.jpg";
+				if (es1==1) imagen = "/images/celda1.jpg";
+				Celda c = new Celda(imagen,tam);
 				tablero[i][j] = c;
-
+				es1 = 1 - es1;
 			}
-
+			Celda p2 = new Celda("/images/pared.jpg",tam);
+			tablero[i][19] = p2;
 		}
 
 	}

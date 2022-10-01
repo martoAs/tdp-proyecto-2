@@ -8,15 +8,17 @@ import java.awt.*;
 public class Celda extends JLabel{
 
     protected String imagen;
+    protected int tamanio;
     protected boolean ocupada;
     protected Consumible consumible;
 
-    public Celda(String img){
+    public Celda(String img, int tam){
         imagen = img;
+        tamanio = tam;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
-        Image image = ic.getImage(); // transform it
-        Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        ic = new ImageIcon(newimg);  // transform it back
+        Image image = ic.getImage();
+        Image newimg = image.getScaledInstance(tam, tam,  java.awt.Image.SCALE_SMOOTH);
+        ic = new ImageIcon(newimg);
 
 
         this.setIcon(ic);
@@ -28,9 +30,15 @@ public class Celda extends JLabel{
         return imagen;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-        this.setIcon(new ImageIcon(Celda.class.getResource(imagen)));
+    public void setImagen(String img) {
+        imagen = img;
+        ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
+        Image image = ic.getImage();
+        Image newimg = image.getScaledInstance(tamanio, tamanio,  java.awt.Image.SCALE_SMOOTH);
+        ic = new ImageIcon(newimg);
+
+
+        this.setIcon(ic);
     }
 
     public boolean estaOcupada() {
