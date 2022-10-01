@@ -12,9 +12,15 @@ public class Celda extends JLabel{
     protected boolean ocupada;
     protected Consumible consumible;
 
-    public Celda(String img, int tam){
+    protected int x;
+
+    protected int y;
+
+    public Celda(String img, int tam, int x, int y){
         imagen = img;
         tamanio = tam;
+        this.x = x;
+        this.y = y;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
         Image image = ic.getImage();
         Image newimg = image.getScaledInstance(tam, tam,  java.awt.Image.SCALE_SMOOTH);

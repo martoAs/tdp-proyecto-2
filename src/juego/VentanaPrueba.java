@@ -18,7 +18,7 @@ public class VentanaPrueba{
 	private int altoVentana = 800;
 	private int anchoVentana = 800;
 
-	private int tamCelda = 40;
+	private int tamCelda = 35;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -67,7 +67,7 @@ public class VentanaPrueba{
 
 		frame.getContentPane().setLayout(gridBagLayout);
 		Logica logica = new Logica(tamCelda);
-		frame.getContentPane().add(new JLabel("PUNT"));
+		frame.getContentPane().add(new JLabel("PUNTjsdhfjahgjadfj"));
 		for(int i = 0; i<20; i++){
 			for(int j = 1; j <21 ; j++){
 				Celda c = logica.getCelda(i,j-1);
@@ -85,6 +85,8 @@ public class VentanaPrueba{
 			}
 		}
 		logica.getCelda(3,6).setImagen("/images/cuerpo.png");
+		logica.getCelda(3,7).setImagen("/images/cuerpo.png");
+		logica.getCelda(3,6).setImagen("");
 		//logica.getCelda(0,3).setImagen("");
 //		//Creacion del tablero
 //		TableroGrafico tablero = new TableroGrafico();
