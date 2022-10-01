@@ -40,6 +40,11 @@ public class Logica {
 		criatura.setDireccion(dir);
 
 	}
+	
+	public char getDireccion() {
+		return criatura.getDireccion();
+	}
+	
 	public void empezarJuego(){
 		criatura.start();
 

@@ -102,10 +102,18 @@ public class Ventana implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		System.out.println(e.getKeyChar());
 		switch(e.getKeyCode()) {
-		case KeyEvent.VK_UP:logica.cambiarDireccion('w');break;
-		case KeyEvent.VK_LEFT:logica.cambiarDireccion('a');break;
-		case KeyEvent.VK_DOWN:logica.cambiarDireccion('s');break;
-		case KeyEvent.VK_RIGHT:logica.cambiarDireccion('d');break;
+		case KeyEvent.VK_UP:{
+			if(logica.getDireccion()!='s') logica.cambiarDireccion('w');
+		}break;
+		case KeyEvent.VK_LEFT:{
+			if(logica.getDireccion()!='d') logica.cambiarDireccion('a');
+		}break;
+		case KeyEvent.VK_DOWN:{
+			if(logica.getDireccion()!='w') logica.cambiarDireccion('s');
+		}break;
+		case KeyEvent.VK_RIGHT:{
+			if(logica.getDireccion()!='a') logica.cambiarDireccion('d');
+		}break;
 	}
 		
 	}

@@ -116,6 +116,10 @@ public class Criatura extends Thread {
 	public Logica getControlador() {
 		return controlador;
 	}
+	
+	public char getDireccion() {
+		return direccion;
+	}
 
 
 
