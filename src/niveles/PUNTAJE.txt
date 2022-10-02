@@ -1,0 +1,11 @@
+-entre 25 y 100 puntos-
+Lombriz: 25 aumenta 2 bloques
+Araña: 50 aumenta 3 bloques
+Sapo: 65 aumenta 4 bloques
+Ratita: 100 aumenta 6 bloques
+Pescado: 80 aumenta 5 bloques
+
+-entre 50 y 100 puntos-
+Futbol: 100
+Redondito: 80
+Psicodelico: 55

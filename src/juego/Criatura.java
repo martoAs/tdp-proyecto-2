@@ -32,7 +32,7 @@ public class Criatura extends Thread {
 			mover();
 			if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
 			try {
-				sleep(500);
+				sleep(100);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
