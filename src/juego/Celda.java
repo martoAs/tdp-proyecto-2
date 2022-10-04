@@ -1,24 +1,22 @@
 package juego;
 import javax.swing.*;
-
 import consumibles.Consumible;
-
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class Celda extends JLabel{
 
     protected String imagen;
-    protected int tamanio;
+    protected int size;
     protected boolean ocupada;
-    protected Consumible consumible;
-
     protected int xenTablero;
-
     protected int yenTablero;
+    
+    protected Consumible consumible;
 
     public Celda(String img, int tam, int x, int y){
         imagen = img;
-        tamanio = tam;
+        size = tam;
         xenTablero = x;
         yenTablero = y;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
@@ -40,7 +38,7 @@ public class Celda extends JLabel{
         imagen = img;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
         Image image = ic.getImage();
-        Image newimg = image.getScaledInstance(tamanio, tamanio,  java.awt.Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH);
         ic = new ImageIcon(newimg);
 
 
@@ -69,17 +67,28 @@ public class Celda extends JLabel{
     public void setConsumible(Consumible consumible) {
         this.consumible = consumible;
     }
-
-    public boolean tieneConsumible(){
-
-        return consumible != null;
+    
+    public void setX(int x) {
+    	xenTablero = x;
     }
+    
     public int getXenTablero(){
         return xenTablero;
     }
-
+    
+    public void setY(int y) {
+    	xenTablero = y;
+    }
+    
     public int getYenTablero(){
         return yenTablero;
     }
-
+    
+    public void efecto(Criatura criatura) {
+    	if(consumible != null) consumible.afectarJugador(criatura);
+    }
+    
+    public int getSizeCelda(){
+    	return size;
+    }
 }

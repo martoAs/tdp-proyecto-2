@@ -1,13 +1,20 @@
 package juego;
 
+import java.util.LinkedList;
+import java.util.Stack;
+
 import consumibles.Consumible;
 
 public class Logica {
 	
 	protected int puntaje;
-	protected Celda[][] tablero;
-
+	protected String tiempo; 
+	protected LinkedList<String> archivos;
+	
 	protected Criatura criatura;
+	protected Ranking ranking;
+	protected Celda[][] tablero;
+	protected Stack<Consumible> pila;
 
 	public Logica (int tam){
 		tablero = new Celda[20][20];
@@ -34,8 +41,8 @@ public class Logica {
 		}
 		criatura = new Criatura(this);
 
-
 	}
+	
 	public void cambiarDireccion(char dir){
 		criatura.setDireccion(dir);
 
@@ -47,8 +54,8 @@ public class Logica {
 	
 	public void empezarJuego(){
 		criatura.start();
-
 	}
+	
 	public void sumarPuntaje(int puntaje){
 		this.puntaje = this.puntaje + puntaje;
 	}
@@ -57,4 +64,21 @@ public class Logica {
 		return tablero[x][y];
 
 	}
+	
+	private void iniciarNivel(int nivel) {
+		
+	}
+	
+	private void mostrarPuntajes() {
+		
+	}
+	
+	private void cicloDeVida(){
+		
+	}
+	
+	private void juego() {
+		
+	}
+	
 }

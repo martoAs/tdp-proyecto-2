@@ -2,7 +2,6 @@ package juego;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.*;
 import static java.awt.BorderLayout.*;
 
@@ -26,10 +25,6 @@ public class Ventana implements KeyListener {
 			}
 		});
 
-	}
-	
-	public Ventana() {
-		//initialize();
 	}
 
 	public void initialize() {
@@ -62,31 +57,7 @@ public class Ventana implements KeyListener {
 				tablero.add(c, gbc_c);
 			}
 		}
-		//logica.getCelda(3,6).setImagen("/images/cuerpo.png");
-		System.out.println("Celda 15, 6: "+logica.getCelda(15,6).getX()+logica.getCelda(15,6).getY());
 		logica.empezarJuego();
-		/*for (int i = 0; i < filas; i++) {
-			JToggleButton tglbtnNewToggleButton = new JToggleButton("");
-			tglbtnNewToggleButton.setBackground(Color.GREEN);
-			tglbtnNewToggleButton.setEnabled(false);
-			tglbtnNewToggleButton.setSize(20, 20);
-			GridBagConstraints gbc_tglbtnNewToggleButton = new GridBagConstraints();
-			gbc_tglbtnNewToggleButton.fill = GridBagConstraints.BOTH;
-			gbc_tglbtnNewToggleButton.gridx = i;
-			gbc_tglbtnNewToggleButton.gridy = 0;
-			frame.getContentPane().add(tglbtnNewToggleButton, gbc_tglbtnNewToggleButton);
-			for(int j = 1; j < columnas; j++) {
-				JToggleButton tglbtnNewToggleButton2 = new JToggleButton("");
-				tglbtnNewToggleButton2.setBackground(Color.ORANGE);
-				tglbtnNewToggleButton2.setEnabled(false);
-				tglbtnNewToggleButton2.setSize(20, 20);
-				GridBagConstraints gbc_tglbtnNewToggleButton2 = new GridBagConstraints();
-				gbc_tglbtnNewToggleButton2.fill = GridBagConstraints.BOTH;
-				gbc_tglbtnNewToggleButton2.gridx = i;
-				gbc_tglbtnNewToggleButton2.gridy = j;
-				frame.getContentPane().add(tglbtnNewToggleButton2, gbc_tglbtnNewToggleButton2);
-			}
-		} */
 
 		frame.setVisible(true);
 		frame.addKeyListener(this);

@@ -1,16 +1,15 @@
 package juego;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Criatura extends Thread {
 
 	protected boolean estaViva;
-	protected Logica controlador;
-
 	protected LinkedList<Celda> cuerpo;
-
 	protected char direccion;
+	protected String skin;
+	
+	protected Logica controlador;
 
 	public Criatura(Logica logica){
 		controlador = logica;
@@ -26,6 +25,7 @@ public class Criatura extends Thread {
 		estaViva = true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		while(estaViva){
@@ -40,73 +40,63 @@ public class Criatura extends Thread {
 		this.stop();
 	}
 
-
+	public void setEstaViva(boolean viva) {
+		estaViva = viva;
+	}
+	
+	public boolean getEstaViva() {
+		return estaViva;
+	}
+	
 	public void setDireccion(char d){
 		direccion = d;
 	}
-	public void mover(){
-
-		//COMO C HACE EL SWITCH
+	
+	public char getDireccion() {
+		return direccion;
+	}
+	
+	private void mover(){
+		Celda cabeza = cuerpo.getFirst();
+		Celda nuevaCabeza = cabeza; //se inicializa para no repetir codigo en el switch
+		Celda borrar = cuerpo.getLast();
+		int sgtX, sgtY;
+		
 		switch (direccion){
 			case 'a': {
 				if(cuerpo.getFirst().getXenTablero()>2){
-					Celda cabeza = cuerpo.getFirst();
-					int sgtX = cabeza.getXenTablero()-1;
-					System.out.println(sgtX+"  "+cabeza.getYenTablero());
-					Celda nuevaCabeza = controlador.getCelda(sgtX,cabeza.getYenTablero());
-					nuevaCabeza.setImagen("/images/cuerpo.png");
-					cuerpo.addFirst(nuevaCabeza);
-					Celda borrar = cuerpo.getLast();
-					borrar.setImagenFondo();
-					cuerpo.removeLast();
+					sgtX = cabeza.getXenTablero()-1;
+					nuevaCabeza = controlador.getCelda(sgtX,cabeza.getYenTablero());	
 				}
 			}break;
 			case 'd': {
 				if(cuerpo.getFirst().getXenTablero()<18){
-					Celda cabeza = cuerpo.getFirst();
-					int sgtX = cabeza.getXenTablero()+1;
-					System.out.println(sgtX+"  "+cabeza.getYenTablero());
-					Celda nuevaCabeza = controlador.getCelda(sgtX,cabeza.getYenTablero());
-					nuevaCabeza.setImagen("/images/cuerpo.png");
-					cuerpo.addFirst(nuevaCabeza);
-					Celda borrar = cuerpo.getLast();
-					borrar.setImagenFondo();
-					cuerpo.removeLast();
+					sgtX = cabeza.getXenTablero()+1;
+					nuevaCabeza = controlador.getCelda(sgtX,cabeza.getYenTablero());
 				}
 			}break;
 			case 'w': {
 				if(cuerpo.getFirst().getYenTablero()>2){
-					Celda cabeza = cuerpo.getFirst();
-					int sgtY = cabeza.getYenTablero()-1;
-					//System.out.println(sgtX+"  "+cabeza.getYenTablero());
-					Celda nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);
-					nuevaCabeza.setImagen("/images/cuerpo.png");
-					cuerpo.addFirst(nuevaCabeza);
-					Celda borrar = cuerpo.getLast();
-					borrar.setImagenFondo();
-					cuerpo.removeLast();
+					sgtY = cabeza.getYenTablero()-1;
+					nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);
 				}
 			}break;
-			case 's': {// BANCO WASD
+			case 's': {
 				if(cuerpo.getFirst().getYenTablero()<18){
-					Celda cabeza = cuerpo.getFirst();
-					int sgtY = cabeza.getYenTablero()+1;
-					//System.out.println(sgtX+"  "+cabeza.getYenTablero());
-					Celda nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);
-					nuevaCabeza.setImagen("/images/cuerpo.png");
-					cuerpo.addFirst(nuevaCabeza);
-					Celda borrar = cuerpo.getLast();
-					borrar.setImagenFondo();
-					cuerpo.removeLast();
+					sgtY = cabeza.getYenTablero()+1;
+					nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);			
 				}
 			}break;
 		}
-
-
+		
+		nuevaCabeza.setImagen("/images/cuerpo.png");
+		cuerpo.addFirst(nuevaCabeza);
+		borrar.setImagenFondo();
+		cuerpo.removeLast();
 	}
 
 	public void cambiarSkin(String nuevaSkin) {
-		
+		skin = nuevaSkin;
 	}
 	
 	public void agrandarCriatura(int tam) {
@@ -117,10 +107,8 @@ public class Criatura extends Thread {
 		return controlador;
 	}
 	
-	public char getDireccion() {
-		return direccion;
+	public void cambiarPuntaje(int puntos) {
+		controlador.sumarPuntaje(puntos);
 	}
-
-
 
 }
