@@ -57,10 +57,12 @@ public class Ventana implements KeyListener {
 				tablero.add(c, gbc_c);
 			}
 		}
+		
+		frame.addKeyListener(this);
 		logica.empezarJuego();
 
 		frame.setVisible(true);
-		frame.addKeyListener(this);
+		
 	}
 
 	@Override 
@@ -70,19 +72,24 @@ public class Ventana implements KeyListener {
 	}
 
 	@Override
+	//Metodo oyente de las teclas/letras para poder mover la serpiente 
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyChar());
+		
 		switch(e.getKeyCode()) {
-		case KeyEvent.VK_UP:{
+		case KeyEvent.VK_UP:
+		case KeyEvent.VK_W:{
 			if(logica.getDireccion()!='s') logica.cambiarDireccion('w');
 		}break;
-		case KeyEvent.VK_LEFT:{
+		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_A:{
 			if(logica.getDireccion()!='d') logica.cambiarDireccion('a');
 		}break;
-		case KeyEvent.VK_DOWN:{
+		case KeyEvent.VK_DOWN:
+		case KeyEvent.VK_S:{
 			if(logica.getDireccion()!='w') logica.cambiarDireccion('s');
 		}break;
-		case KeyEvent.VK_RIGHT:{
+		case KeyEvent.VK_RIGHT:
+		case KeyEvent.VK_D:{
 			if(logica.getDireccion()!='a') logica.cambiarDireccion('d');
 		}break;
 	}

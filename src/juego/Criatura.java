@@ -31,11 +31,11 @@ public class Criatura extends Thread {
 		while(estaViva){
 			mover();
 			if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
-			try {
-				sleep(50);
+			/*try {
+				//sleep(1);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
-			}
+			}*/
 		}
 		this.stop();
 	}
