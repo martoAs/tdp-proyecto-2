@@ -94,12 +94,12 @@ public class VentanaPrueba{
 		}
 		for(int i = 1 ; i<19; i++){
 			for(int j = 1; j <19 ; j++){
-				logica.getCelda(i,j).setImagen("");
+				///logica.getCelda(i,j).setImagen("");
 			}
 		}
-		logica.getCelda(3,6).setImagen("/images/cuerpo.png");
-		logica.getCelda(3,7).setImagen("/images/cuerpo.png");
-		logica.getCelda(3,6).setImagen("");
+		//logica.getCelda(3,6).setImagen("/images/cuerpo.png");
+		//logica.getCelda(3,7).setImagen("/images/cuerpo.png");
+		//logica.getCelda(3,6).setImagen("");
 
 
 

@@ -17,26 +17,33 @@ public class Logica {
 	protected Stack<Consumible> pila;
 
 	public Logica (int tam){
+		//Se crea el tablero
 		tablero = new Celda[20][20];
-		int es1 = 1;
+
+		//Se inicializan las celdas de los extremos como paredes
 		for(int j = 0; j<20; j++){
-			Celda p = new Celda("/images/pared.jpg",tam,0,j);
+			Celda p = new Celda(tam,0,j);
+			p.setImagenPared();
 			tablero[0][j] = p;
-			Celda p2 = new Celda("/images/pared.jpg",tam,19,j);
+			Celda p2 = new Celda(tam,19,j);
+			p2.setImagenPared();
 			tablero[19][j] = p2;
 		}
 		for(int i = 1; i<19; i++){
-			Celda p = new Celda("/images/pared.jpg",tam,i,0);
+			Celda p = new Celda(tam,i,0);
+			p.setImagenPared();
 			tablero[i][0] = p;
-			es1 = 1 - es1;
+
+			//Se inicializan las celdas del medio intercaladas como tablero de ajedrez
 			for(int j = 1; j<19;j++){
-				String imagen = "/images/celda2.jpg";
-				if (es1==1) imagen = "/images/celda1.jpg";
-				Celda c = new Celda(imagen,tam,i,j);
+
+				Celda c = new Celda(tam,i,j);
+				c.setImagenFondo();
 				tablero[i][j] = c;
-				es1 = 1 - es1;
+
 			}
-			Celda p2 = new Celda("/images/pared.jpg",tam,i,19);
+			Celda p2 = new Celda(tam,i,19);
+			p2.setImagenPared();
 			tablero[i][19] = p2;
 		}
 		criatura = new Criatura(this);
@@ -66,19 +73,14 @@ public class Logica {
 	}
 	
 	private void iniciarNivel(int nivel) {
-		
+
 	}
 	
 	private void mostrarPuntajes() {
 		
 	}
 	
-	private void cicloDeVida(){
-		
+	public void terminoNivel(){
+
 	}
-	
-	private void juego() {
-		
-	}
-	
 }

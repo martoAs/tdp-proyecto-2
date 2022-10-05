@@ -14,18 +14,12 @@ public class Celda extends JLabel{
     
     protected Consumible consumible;
 
-    public Celda(String img, int tam, int x, int y){
-        imagen = img;
+    public Celda( int tam, int x, int y){
+        imagen = "";
         size = tam;
         xenTablero = x;
         yenTablero = y;
-        ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
-        Image image = ic.getImage();
-        Image newimg = image.getScaledInstance(tam, tam,  java.awt.Image.SCALE_SMOOTH);
-        ic = new ImageIcon(newimg);
 
-
-        this.setIcon(ic);
         ocupada = false;
         consumible = null;
     }
@@ -34,7 +28,7 @@ public class Celda extends JLabel{
         return imagen;
     }
 
-    public void setImagen(String img) {
+    private void setImagen(String img) {
         imagen = img;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
         Image image = ic.getImage();
@@ -49,9 +43,28 @@ public class Celda extends JLabel{
     public void setImagenFondo(){
         if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
         else setImagen("/images/celda2.jpg");
+        ocupada = false;
 
     }
 
+    public void setImagenCuerpo(){
+
+        setImagen("/images/cuerpo.png");
+        ocupada= true;
+    }
+
+    public void setImagenPared(){
+
+        setImagen("/images/pared.jpg");
+        ocupada = true;
+    }
+
+    public void setImagenCabeza(){
+        if(xenTablero%2 != yenTablero%2) setImagen("/images/cabeza1.jpg");
+        else setImagen("/images/cabeza2.jpg");
+        ocupada = true;
+
+    }
     public boolean estaOcupada() {
         return ocupada;
     }
@@ -68,24 +81,25 @@ public class Celda extends JLabel{
         this.consumible = consumible;
     }
     
-    public void setX(int x) {
-    	xenTablero = x;
-    }
+
     
     public int getXenTablero(){
         return xenTablero;
     }
     
-    public void setY(int y) {
-    	xenTablero = y;
-    }
+
     
     public int getYenTablero(){
         return yenTablero;
     }
     
     public void efecto(Criatura criatura) {
-    	if(consumible != null) consumible.afectarJugador(criatura);
+    	if (ocupada == true){
+            criatura.setEstaViva(false);
+
+        }
+
+        if(consumible != null) consumible.afectarJugador(criatura);
     }
     
     public int getSizeCelda(){

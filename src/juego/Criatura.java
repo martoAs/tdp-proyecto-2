@@ -14,13 +14,13 @@ public class Criatura extends Thread {
 	public Criatura(Logica logica){
 		controlador = logica;
 		cuerpo = new LinkedList<Celda>();
-		//Criatura en (3,6)-(3,7)-(4,7)
+		//Se inicializa la criatura
 		cuerpo.addFirst(controlador.getCelda(15,6));
-		cuerpo.getFirst().setImagen("/images/cuerpo.png");
+		cuerpo.getFirst().setImagenCabeza();
 		cuerpo.addLast(controlador.getCelda(16,6));
-		cuerpo.getLast().setImagen("/images/cuerpo.png");
+		cuerpo.getLast().setImagenCuerpo();
 		cuerpo.addLast(controlador.getCelda(17,6));
-		cuerpo.getLast().setImagen("/images/cuerpo.png");
+		cuerpo.getLast().setImagenCuerpo();
 		direccion = 'a';
 		estaViva = true;
 	}
@@ -32,7 +32,7 @@ public class Criatura extends Thread {
 			mover();
 			if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
 			try {
-				sleep(100);
+				sleep(50);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
@@ -64,35 +64,39 @@ public class Criatura extends Thread {
 		
 		switch (direccion){
 			case 'a': {
-				if(cuerpo.getFirst().getXenTablero()>2){
+
 					sgtX = cabeza.getXenTablero()-1;
 					nuevaCabeza = controlador.getCelda(sgtX,cabeza.getYenTablero());	
-				}
+
 			}break;
 			case 'd': {
-				if(cuerpo.getFirst().getXenTablero()<18){
+
 					sgtX = cabeza.getXenTablero()+1;
 					nuevaCabeza = controlador.getCelda(sgtX,cabeza.getYenTablero());
-				}
+
 			}break;
 			case 'w': {
-				if(cuerpo.getFirst().getYenTablero()>2){
+
 					sgtY = cabeza.getYenTablero()-1;
 					nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);
-				}
+
 			}break;
 			case 's': {
-				if(cuerpo.getFirst().getYenTablero()<18){
+
 					sgtY = cabeza.getYenTablero()+1;
 					nuevaCabeza = controlador.getCelda(cabeza.getXenTablero(),sgtY);			
-				}
+
 			}break;
 		}
-		
-		nuevaCabeza.setImagen("/images/cuerpo.png");
-		cuerpo.addFirst(nuevaCabeza);
-		borrar.setImagenFondo();
-		cuerpo.removeLast();
+
+		nuevaCabeza.efecto(this);
+		if(estaViva){
+			nuevaCabeza.setImagenCabeza();
+			cuerpo.getFirst().setImagenCuerpo();
+			cuerpo.addFirst(nuevaCabeza);
+			borrar.setImagenFondo();
+			cuerpo.removeLast();
+		}
 	}
 
 	public void cambiarSkin(String nuevaSkin) {
