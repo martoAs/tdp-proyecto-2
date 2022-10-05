@@ -30,12 +30,12 @@ public class Criatura extends Thread {
 	public void run() {
 		while(estaViva){
 			mover();
-			if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
-			/*try {
-				//sleep(1);
+			//if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
+			try {
+				sleep(100);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
-			}*/
+			}
 		}
 		this.stop();
 	}
