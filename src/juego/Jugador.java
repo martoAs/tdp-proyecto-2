@@ -1,6 +1,8 @@
 package juego;
 
-public class Jugador {
+import java.io.Serializable;
+
+public class Jugador implements Serializable{
 	private int puntaje;
 	private String tiempo;
 	

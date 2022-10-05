@@ -1,13 +1,95 @@
 package juego;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class Ranking implements Serializable {
 	
 	//public listadoJugador; 
-	protected Jugador[] listaJugadores;
+	protected List<Jugador> listaJugadores;
+	private String lugarGuardado;
+	private static final int NUMERO_JUGADORES = 10;
 	
-	public void agregarJugador(int puntaje, String tiempo) {
+	public Ranking(String nombreArchivo) {
+		listaJugadores = new ArrayList<>();
+		lugarGuardado = nombreArchivo;
+		File file = new File("nombreArchivo");
 		
+		try {
+			if(!file.exists())
+				file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	public void ordenarPorPuntaje() {
+		listaJugadores.sort(new Comparator<Jugador>() {
+
+			@Override
+			public int compare(Jugador jug1, Jugador jug2) {
+				Integer puntaje1 = jug1.getPuntaje();
+				Integer puntaje2 = jug2.getPuntaje();
+				return puntaje1.compareTo(puntaje2);
+			}
+			
+		});
+	}
+	
+	public void ordenarPorTiempo() {
+		listaJugadores.sort(new Comparator<Jugador>() {
+			
+
+			@Override
+			public int compare(Jugador jug1, Jugador jug2) {
+				String tiempo1 = jug1.getTiempo();
+				String tiempo2 = jug2.getTiempo();
+				return tiempo1.compareTo(tiempo2);
+			}
+			
+		});
+	}
+	
+	public boolean agregarJugador(Jugador jug) {
+		boolean resultado = false;
+		if(listaJugadores.size() < NUMERO_JUGADORES) {
+			listaJugadores.add(jug);
+			ordenarPorPuntaje();
+			resultado = true;
+		}
+		else {
+			Jugador jugMenosPuntaje = listaJugadores.get(0);
+			if(jug.getPuntaje() > jugMenosPuntaje.getPuntaje()) {
+				listaJugadores.remove(jugMenosPuntaje);
+				listaJugadores.add(jug);
+				ordenarPorPuntaje();
+				resultado = true;
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public void guardar() {
+		try {
+			FileOutputStream fos = new FileOutputStream(lugarGuardado);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			if((oos != null))
+				oos.writeObject(this);
+			oos.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Jugador> getListaJugadores() {
+		return listaJugadores;
+	}
+	
 }
