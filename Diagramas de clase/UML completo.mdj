@@ -3190,9 +3190,9 @@
 										"$ref": "AAAAAAGDZTU+TXdNf48="
 									},
 									"font": "Arial;13;0",
-									"left": 552,
+									"left": 550,
 									"top": 252,
-									"width": 27.828125,
+									"width": 30.34814453125,
 									"height": 13,
 									"alpha": 0.9907936826458565,
 									"distance": 34.66987164671943,
@@ -3200,7 +3200,7 @@
 										"$ref": "AAAAAAGDZTU+TndRqI4="
 									},
 									"edgePosition": 1,
-									"text": "#pila"
+									"text": "#lista"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -8127,7 +8127,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGDWv/cqS7XwqM="
 							},
-							"name": "pila",
+							"name": "lista",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAGDZTU+TXdOUBQ=",
