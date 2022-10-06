@@ -1,6 +1,12 @@
 package juego;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 import consumibles.Consumible;
@@ -19,34 +25,17 @@ public class Logica {
 	public Logica (int tam){
 		//Se crea el tablero
 		tablero = new Celda[20][20];
-
-		//Se inicializan las celdas de los extremos como paredes
-		for(int j = 0; j<20; j++){
-			Celda p = new Celda(tam,0,j);
-			p.setImagenPared();
-			tablero[0][j] = p;
-			Celda p2 = new Celda(tam,19,j);
-			p2.setImagenPared();
-			tablero[19][j] = p2;
-		}
-		for(int i = 1; i<19; i++){
-			Celda p = new Celda(tam,i,0);
-			p.setImagenPared();
-			tablero[i][0] = p;
-
-			//Se inicializan las celdas del medio intercaladas como tablero de ajedrez
-			for(int j = 1; j<19;j++){
-
-				Celda c = new Celda(tam,i,j);
-				c.setImagenFondo();
-				tablero[i][j] = c;
-
-			}
-			Celda p2 = new Celda(tam,i,19);
-			p2.setImagenPared();
-			tablero[i][19] = p2;
-		}
+		
+		//Listado de niveles
+		archivos = new LinkedList<String>();
+		archivos.add("src/niveles/nivel1.txt");
+		archivos.add("src/niveles/nivel2.txt");
+		
+		
+		
+		iniciarNivel(1, tam);
 		criatura = new Criatura(this);
+		
 
 	}
 	
@@ -72,8 +61,40 @@ public class Logica {
 
 	}
 	
-	private void iniciarNivel(int nivel) {
+	private void iniciarNivel(int nivel, int tam) {
+		Path archivoNivel = Path.of(archivos.get(nivel));
+		String todoNivel = ""; //Archivo que contiene todos los caracteres del nivel
+		List<String> filas; //Cada arreglo tiene una fila
+		try {
+			filas = Files.readAllLines(archivoNivel);
+			
+			//System.out.println(filas.get(0));
+			//System.out.println(filas.size());
 
+			
+			for(int fila = 0; fila < filas.size(); fila++) {
+				for(int col = 0; col < 20; col++) {
+					switch(filas.get(fila).charAt(col)) {
+						case '#', 'P' -> {
+							Celda pared = new Celda(tam, fila, col);
+							pared.setImagenPared();
+							tablero[fila][col] = pared;
+						}
+						case '.', 'F' -> {
+							Celda fondo = new Celda(tam, fila, col);
+							fondo.setImagenFondo();
+							tablero[fila][col] = fondo;
+						}
+					}
+				}
+			}
+	        
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	private void mostrarPuntajes() {

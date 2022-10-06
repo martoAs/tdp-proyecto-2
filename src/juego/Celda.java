@@ -105,4 +105,5 @@ public class Celda extends JLabel{
     public int getSizeCelda(){
     	return size;
     }
+
 }
