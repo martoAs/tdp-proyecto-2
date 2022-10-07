@@ -17,6 +17,15 @@ public class CriaturaGrafica {
         skins.add("cabeza");
         skins.add("cuerpo");
 
+        skins.add("cabezaP");
+        skins.add("cuerpoP");
+
+        skins.add("cabezaR");
+        skins.add("cuerpoR");
+
+        skins.add("cabezaF");
+        skins.add("cuerpoF");
+
     }
 
 

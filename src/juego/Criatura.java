@@ -13,6 +13,8 @@ public class Criatura extends Thread {
 
 	protected CriaturaGrafica graficos;
 
+	protected int celdasAgregadas ;
+
 	public Criatura(Logica logica){
 		controlador = logica;
 		cuerpo = new LinkedList<Celda>();
@@ -26,6 +28,7 @@ public class Criatura extends Thread {
 		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 		direccion = 'a';
 		estaViva = true;
+
 
 	}
 
@@ -98,8 +101,13 @@ public class Criatura extends Thread {
 			nuevaCabeza.setOcupada(graficos.getImagenCabeza());
 			cuerpo.getFirst().setOcupada(graficos.getImagenCuerpo());
 			cuerpo.addFirst(nuevaCabeza);
-			borrar.desocupar();
-			cuerpo.removeLast();
+
+			if(celdasAgregadas>0) celdasAgregadas--;
+			else{
+				borrar.desocupar();
+				cuerpo.removeLast();
+			}
+
 		}
 	}
 
@@ -108,7 +116,7 @@ public class Criatura extends Thread {
 	}
 	
 	public void agrandarCriatura(int tam) {
-		
+		celdasAgregadas = tam;
 	}
 
 	public Logica getControlador() {
