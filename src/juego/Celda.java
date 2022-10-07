@@ -28,6 +28,13 @@ public class Celda extends JLabel{
         return imagen;
     }
 
+    public void setOcupada(String img){
+        if(xenTablero%2 != yenTablero%2) setImagen("/images/"+img+"1.jpg");
+        else setImagen("/images/"+img+"2.jpg");
+        ocupada = true;
+
+    }
+
     private void setImagen(String img) {
         imagen = img;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
