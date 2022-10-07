@@ -11,18 +11,22 @@ public class Criatura extends Thread {
 	
 	protected Logica controlador;
 
+	protected CriaturaGrafica graficos;
+
 	public Criatura(Logica logica){
 		controlador = logica;
 		cuerpo = new LinkedList<Celda>();
+		graficos = new CriaturaGrafica();
 		//Se inicializa la criatura
 		cuerpo.addFirst(controlador.getCelda(15,6));
-		cuerpo.getFirst().setImagenCabeza();
+		cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
 		cuerpo.addLast(controlador.getCelda(16,6));
-		cuerpo.getLast().setImagenCuerpo();
+		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 		cuerpo.addLast(controlador.getCelda(17,6));
-		cuerpo.getLast().setImagenCuerpo();
+		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 		direccion = 'a';
 		estaViva = true;
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -91,8 +95,8 @@ public class Criatura extends Thread {
 
 		nuevaCabeza.efecto(this);
 		if(estaViva){
-			nuevaCabeza.setImagenCabeza();
-			cuerpo.getFirst().setImagenCuerpo();
+			nuevaCabeza.setOcupada(graficos.getImagenCabeza());
+			cuerpo.getFirst().setOcupada(graficos.getImagenCuerpo());
 			cuerpo.addFirst(nuevaCabeza);
 			borrar.setImagenFondo();
 			cuerpo.removeLast();
