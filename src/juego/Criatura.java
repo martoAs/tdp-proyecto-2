@@ -98,7 +98,7 @@ public class Criatura extends Thread {
 			nuevaCabeza.setOcupada(graficos.getImagenCabeza());
 			cuerpo.getFirst().setOcupada(graficos.getImagenCuerpo());
 			cuerpo.addFirst(nuevaCabeza);
-			borrar.setImagenFondo();
+			borrar.desocupar();
 			cuerpo.removeLast();
 		}
 	}

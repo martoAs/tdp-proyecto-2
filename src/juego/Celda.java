@@ -35,6 +35,13 @@ public class Celda extends JLabel{
 
     }
 
+    public void desocupar(){
+        if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
+        else setImagen("/images/celda2.jpg");
+        ocupada = false;
+
+    }
+
     private void setImagen(String img) {
         imagen = img;
         ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
@@ -47,38 +54,14 @@ public class Celda extends JLabel{
         this.repaint();
     }
 
-    public void setImagenFondo(){
-        if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
-        else setImagen("/images/celda2.jpg");
-        ocupada = false;
 
-    }
 
-    public void setImagenCuerpo(){
 
-        setImagen("/images/cuerpo.png");
-        ocupada= true;
-    }
-
-    public void setImagenPared(){
-
-        setImagen("/images/pared.jpg");
-        ocupada = true;
-    }
-
-    public void setImagenCabeza(){
-        if(xenTablero%2 != yenTablero%2) setImagen("/images/cabeza1.jpg");
-        else setImagen("/images/cabeza2.jpg");
-        ocupada = true;
-
-    }
     public boolean estaOcupada() {
         return ocupada;
     }
 
-    public void setOcupada(boolean ocupada) {
-        this.ocupada = ocupada;
-    }
+
 
     public Consumible getConsumible() {
         return consumible;

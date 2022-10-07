@@ -13,7 +13,7 @@ import java.net.URL;
 import static java.awt.BorderLayout.*;
 public class VentanaPrueba{
 
-	private JFrame frame;
+	/*private JFrame frame;
 	private int filas = 20;
 	private int columnas = 20;
 	private int altoVentana = 800;
@@ -188,5 +188,5 @@ public class VentanaPrueba{
 		}
 		
 	}
-
+*/
 }

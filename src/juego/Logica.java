@@ -75,12 +75,12 @@ public class Logica {
 					switch(filas.get(fila).charAt(col)) {
 						case '#', 'F', 'P' -> {
 							Celda pared = new Celda(tam, col, fila);
-							pared.setImagenPared();
+							pared.setOcupada("pared");
 							tablero[col][fila] = pared;
 						}
 						case '.' -> {
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setImagenFondo();
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 					}
