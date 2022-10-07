@@ -7,7 +7,7 @@ public class Criatura extends Thread {
 	protected boolean estaViva;
 	protected LinkedList<Celda> cuerpo;
 	protected char direccion;
-	protected String skin;
+
 	
 	protected Logica controlador;
 
@@ -111,8 +111,8 @@ public class Criatura extends Thread {
 		}
 	}
 
-	public void cambiarSkin(String nuevaSkin) {
-		skin = nuevaSkin;
+	public void cambiarSkin(int estado) {
+		graficos.cambiarEstado(estado);
 	}
 	
 	public void agrandarCriatura(int tam) {

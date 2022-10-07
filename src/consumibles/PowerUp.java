@@ -3,7 +3,7 @@ import juego.Criatura;
 
 public abstract class PowerUp extends Consumible{
 	
-	protected String skin;
+	protected int skin;
 	
 	public void afectarJugador(Criatura criatura) {
 		size = 3;
