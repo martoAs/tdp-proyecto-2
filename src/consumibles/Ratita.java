@@ -3,7 +3,7 @@ package consumibles;
 public class Ratita extends Consumible{
 	
 	public Ratita(){
-		size = 5;
+		size = 6;
 		puntaje = 100;
 	}
 }
