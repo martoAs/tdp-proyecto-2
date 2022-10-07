@@ -67,26 +67,25 @@ public class Logica {
 		List<String> filas; //Cada arreglo tiene una fila
 		try {
 			filas = Files.readAllLines(archivoNivel);
-			
-			//System.out.println(filas.get(0));
-			//System.out.println(filas.size());
 
 			
 			for(int fila = 0; fila < filas.size(); fila++) {
 				for(int col = 0; col < 20; col++) {
+					System.out.print(filas.get(fila).charAt(col));
 					switch(filas.get(fila).charAt(col)) {
-						case '#', 'P' -> {
-							Celda pared = new Celda(tam, fila, col);
+						case '#', 'F', 'P' -> {
+							Celda pared = new Celda(tam, col, fila);
 							pared.setImagenPared();
-							tablero[fila][col] = pared;
+							tablero[col][fila] = pared;
 						}
-						case '.', 'F' -> {
-							Celda fondo = new Celda(tam, fila, col);
+						case '.' -> {
+							Celda fondo = new Celda(tam, col, fila);
 							fondo.setImagenFondo();
-							tablero[fila][col] = fondo;
+							tablero[col][fila] = fondo;
 						}
 					}
 				}
+				System.out.println();
 			}
 	        
 		} catch (IOException e) {
