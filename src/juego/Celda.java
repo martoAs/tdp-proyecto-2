@@ -44,7 +44,7 @@ public class Celda extends JLabel{
 
     private void setImagen(String img) {
         imagen = img;
-        ImageIcon ic = new ImageIcon(Celda.class.getResource(imagen));
+        ImageIcon ic = new ImageIcon("src"+img);
         Image image = ic.getImage();
         Image newimg = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH);
         ic = new ImageIcon(newimg);
