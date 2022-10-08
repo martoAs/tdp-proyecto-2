@@ -9,6 +9,6 @@ public abstract class PowerUp extends Consumible{
 	public void afectarJugador(Criatura criatura) {
 		size = 3;
 		super.afectarJugador(criatura);
-		criatura.cambiarSkin(skin);
+		criatura.cambiarSkin(estado);
 	}
 }

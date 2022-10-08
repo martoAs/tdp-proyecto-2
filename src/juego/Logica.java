@@ -7,8 +7,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+
+import consumibles.Arania;
 import consumibles.Consumible;
+import consumibles.Futbol;
+import consumibles.Lombriz;
+import consumibles.Pescado;
+import consumibles.Psicodelico;
 import consumibles.Ratita;
+import consumibles.Redondito;
+import consumibles.Sapo;
 
 public class Logica {
 	
@@ -21,8 +31,9 @@ public class Logica {
 	protected Celda[][] tablero;
 	protected Stack<Consumible> pila;
 	protected Ventana ventana;
+	protected Reloj time;
 
-	public Logica (int tam, Ventana ventana){
+	public Logica (int tam, Ventana ventana,JLabel l){
 		//Se crea el tablero
 		tablero = new Celda[20][20];
 		
@@ -37,6 +48,8 @@ public class Logica {
 		iniciarNivel(1, tam);
 		criatura = new Criatura(this);
 		this.ventana = ventana;
+		time = new Reloj(l);
+		
 	}
 	
 	public void cambiarDireccion(char dir){
@@ -50,6 +63,7 @@ public class Logica {
 	
 	public void empezarJuego(){
 		criatura.start();
+		time.start();
 	}
 	
 	public void sumarPuntaje(int puntaje){
@@ -84,13 +98,13 @@ public class Logica {
 							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
-						case 'F' -> {
+						case 'r' -> {
 							Ratita rat = new Ratita();
 							Celda fondo = new Celda(tam, col, fila);
 							fondo.setConsumible(rat);
 							tablero[col][fila] = fondo;
 						}
-						/*
+						
 						case 'l' -> {
 							Lombriz lomb = new Lombriz();
 							Celda fondo = new Celda(tam, col, fila);
@@ -133,9 +147,10 @@ public class Logica {
 							fondo.setConsumible(redondo);
 							tablero[col][fila] = fondo;
 						}
-						*/
+						
  					}
 				}
+
 				System.out.println();
 			}
 	        
@@ -148,6 +163,7 @@ public class Logica {
 	}
 	
 	public void mostrarPuntajes() {
+		time.setFinished(true);
 		String nombre = ventana.ingresarNombre();
 		if(nombre != null) { //El usuario presiono aceptar 
 			Jugador jugador = new Jugador(nombre, puntaje, tiempo);

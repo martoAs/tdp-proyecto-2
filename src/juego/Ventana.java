@@ -39,24 +39,32 @@ public class Ventana implements KeyListener {
 		panelJuego.setLayout(gridBagLayout);
 		frame.getContentPane().add(panelJuego);
 		
+		
 		//Creamos el menu para mostrar puntaje, tiempo y el ranking, se incluye en el frame
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.BLACK);
 		menuBar.setBorder(new EmptyBorder(0, 100, 0, -100));
 		
 		JMenuItem Mpuntaje = new JMenuItem("PUNTAJE: ");
+	
 		Mpuntaje.setEnabled(false);
 		Mpuntaje.setBackground(Color.BLACK);
 		Mpuntaje.setForeground(Color.WHITE);
 		Mpuntaje.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		menuBar.add(Mpuntaje);
 		
+		JLabel t = new JLabel("00:00:00");
+		t.setBackground(Color.BLACK);
+		t.setForeground(Color.WHITE);
+		t.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		JMenuItem Mtiempo = new JMenuItem("TIEMPO: ");
 		Mtiempo.setEnabled(false);
 		Mtiempo.setBackground(Color.BLACK);
 		Mtiempo.setForeground(Color.WHITE);
 		Mtiempo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		menuBar.add(Mtiempo);
+		menuBar.add(t);
+		
 		
 		Component horizontalGlue = Box.createHorizontalGlue(); //Para que ranking se vea a la derecha
 		horizontalGlue.setEnabled(false);
@@ -93,7 +101,7 @@ public class Ventana implements KeyListener {
 		frame.setJMenuBar(menuBar);
 		
 		//Insertamos las celdas al panel del juego
-		logica = new Logica(tamCelda, this);
+		logica = new Logica(tamCelda, this, t);
 		
 		for(int i = 0; i<20; i++){
 			for(int j = 0; j <20 ; j++){
