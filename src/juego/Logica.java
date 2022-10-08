@@ -1,10 +1,8 @@
 package juego;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -19,11 +17,12 @@ public class Logica {
 	protected LinkedList<String> archivos;
 	
 	protected Criatura criatura;
-	//protected Ranking ranking;
+	protected Ranking ranking;
 	protected Celda[][] tablero;
 	protected Stack<Consumible> pila;
+	protected Ventana ventana;
 
-	public Logica (int tam){
+	public Logica (int tam, Ventana ventana){
 		//Se crea el tablero
 		tablero = new Celda[20][20];
 		
@@ -33,14 +32,11 @@ public class Logica {
 		archivos.add("src/niveles/nivel2.txt");
 		archivos.add("src/niveles/nivel3.txt");
 		archivos.add("src/niveles/nivel4.txt");
-		archivos.add("src/niveles/nivel5.txt");
-		
-		
+		archivos.add("src/niveles/nivel5.txt"); 
 		
 		iniciarNivel(1, tam);
 		criatura = new Criatura(this);
-		
-
+		this.ventana = ventana;
 	}
 	
 	public void cambiarDireccion(char dir){
@@ -151,11 +147,22 @@ public class Logica {
 		
 	}
 	
-	private void mostrarPuntajes() {
-		
+	public void mostrarPuntajes() {
+		String nombre = ventana.ingresarNombre();
+		if(nombre != null) { //El usuario presiono aceptar 
+			Jugador jugador = new Jugador(nombre, puntaje, tiempo);
+			ranking.agregarJugador(jugador);
+			ranking.ordenarPorPuntaje();
+			ranking.ordenarPorTiempo();
+		}
+		ventana.cargarRanking();
 	}
 	
 	public void terminoNivel(){
-
+		
+	}
+	
+	public Ranking getRanking() {
+		return ranking;
 	}
 }

@@ -1,7 +1,5 @@
 package juego;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -88,8 +86,7 @@ public class Ranking implements Serializable {
 		}
 	}
 
-	public List<Jugador> getListaJugadores() {
-		return listaJugadores;
+	public Jugador getJugador(int pos) {
+		return listaJugadores.get(pos);
 	}
-	
 }

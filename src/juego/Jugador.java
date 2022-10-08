@@ -5,8 +5,10 @@ import java.io.Serializable;
 public class Jugador implements Serializable{
 	private int puntaje;
 	private String tiempo;
+	private String nombre;
 	
-	public Jugador(int p, String t) {
+	public Jugador(String n, int p, String t) {
+		nombre = n;
 		puntaje = p;
 		tiempo = t;
 	}
@@ -25,6 +27,10 @@ public class Jugador implements Serializable{
 
 	public void setTiempo(String tiempo) {
 		this.tiempo = tiempo;
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 	
 }

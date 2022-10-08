@@ -28,8 +28,6 @@ public class Criatura extends Thread {
 		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 		direccion = 'a';
 		estaViva = true;
-
-
 	}
 
 	@SuppressWarnings("deprecation")
@@ -37,13 +35,13 @@ public class Criatura extends Thread {
 	public void run() {
 		while(estaViva){
 			mover();
-			//if(cuerpo.getFirst().getXenTablero()==2) estaViva= false;
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}
 		}
+		controlador.mostrarPuntajes();
 		this.stop();
 	}
 

@@ -51,15 +51,12 @@ public class Celda extends JLabel{
             else setImagen("/images/"+img+"2.jpg");
 
         }
-
-
     }
 
     public void desocupar(){
         if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
         else setImagen("/images/celda2.jpg");
         ocupada = false;
-
     }
 
     private void setImagen(String img)  {
