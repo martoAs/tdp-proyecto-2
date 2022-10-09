@@ -124,5 +124,9 @@ public class Criatura extends Thread {
 	public void cambiarPuntaje(int puntos) {
 		controlador.sumarPuntaje(puntos);
 	}
+	
+	public void consumibleComido() {
+		controlador.ponerConsumible();
+	}
 
 }

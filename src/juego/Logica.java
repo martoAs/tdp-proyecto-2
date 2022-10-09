@@ -3,8 +3,10 @@ package juego;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 import javax.swing.JLabel;
@@ -32,10 +34,18 @@ public class Logica {
 	protected Stack<Consumible> pila;
 	protected Ventana ventana;
 	protected Reloj time;
+	
+	protected List<Celda> celdasConConsumible;
+	protected int nivel;
+	protected int tam;
 
 	public Logica (int tam, Ventana ventana,JLabel l){
 		//Se crea el tablero
 		tablero = new Celda[20][20];
+		
+		celdasConConsumible = new ArrayList<Celda>();
+		nivel = 0;
+		this.tam = tam;
 		
 		//Listado de niveles
 		archivos = new LinkedList<String>();
@@ -45,8 +55,7 @@ public class Logica {
 		archivos.add("src/niveles/nivel4.txt");
 		archivos.add("src/niveles/nivel5.txt"); 
 		
-		iniciarNivel(1, tam);
-		criatura = new Criatura(this);
+		iniciarNivel(nivel, this.tam);
 		this.ventana = ventana;
 		time = new Reloj(l);
 		
@@ -78,7 +87,6 @@ public class Logica {
 	
 	private void iniciarNivel(int nivel, int tam) {
 		Path archivoNivel = Path.of(archivos.get(nivel));
-		String todoNivel = ""; //Archivo que contiene todos los caracteres del nivel
 		List<String> filas; //Cada arreglo tiene una fila
 		try {
 			filas = Files.readAllLines(archivoNivel);
@@ -88,7 +96,7 @@ public class Logica {
 				for(int col = 0; col < 20; col++) {
 					System.out.print(filas.get(fila).charAt(col));
 					switch(filas.get(fila).charAt(col)) {
-						case '#', 'P' -> {
+						case '#' -> {
 							Celda pared = new Celda(tam, col, fila);
 							pared.setOcupada("pared");
 							tablero[col][fila] = pared;
@@ -100,51 +108,75 @@ public class Logica {
 						}
 						case 'r' -> {
 							Ratita rat = new Ratita();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(rat);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(rat);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						
 						case 'l' -> {
 							Lombriz lomb = new Lombriz();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(lomb);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(lomb);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						case 'p' -> {
 							Pescado pez = new Pescado();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(pez);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(pez);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						case 'i' -> {
 							Arania julian = new Arania(); // :)
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(julian);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(julian);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						case 't' -> {
 							Sapo sapo = new Sapo();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(sapo);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(sapo);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						case 'd' -> {
 							Psicodelico psi = new Psicodelico();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(psi);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(psi);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						case 'f' -> {
 							Futbol fulvo = new Futbol();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(fulvo);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(fulvo);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						case 'c' -> {
 							Redondito redondo = new Redondito();
+							Celda fondoAux = new Celda(tam, col, fila);
+							fondoAux.setConsumible(redondo);
+							celdasConConsumible.add(fondoAux);
 							Celda fondo = new Celda(tam, col, fila);
-							fondo.setConsumible(redondo);
+							fondo.desocupar();
 							tablero[col][fila] = fondo;
 						}
 						
@@ -153,6 +185,9 @@ public class Logica {
 
 				System.out.println();
 			}
+			
+			ponerConsumible();
+			criatura = new Criatura(this);
 	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -175,10 +210,23 @@ public class Logica {
 	}
 	
 	public void terminoNivel(){
-		
+		nivel++;
+		iniciarNivel(nivel, tam);
 	}
 	
 	public Ranking getRanking() {
 		return ranking;
+	}
+	
+	public void ponerConsumible() {
+		if(celdasConConsumible.size() > 0) {
+				Random rand = new Random();
+				int random = rand.nextInt(celdasConConsumible.size());
+				Celda primero = celdasConConsumible.get(random);
+				celdasConConsumible.remove(random);
+				tablero[primero.getXenTablero()][primero.getYenTablero()].setConsumible(primero.getConsumible());
+		}
+		else
+			terminoNivel();
 	}
 }
