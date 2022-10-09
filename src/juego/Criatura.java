@@ -1,6 +1,8 @@
 package juego;
 
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Random;
 
 public class Criatura extends Thread {
 
@@ -8,32 +10,47 @@ public class Criatura extends Thread {
 	protected LinkedList<Celda> cuerpo;
 	protected char direccion;
 
-	
+	protected boolean juegoAndando;
 	protected Logica controlador;
 
 	protected CriaturaGrafica graficos;
 
 	protected int celdasAgregadas ;
 
-	public Criatura(Logica logica){
+	public Criatura(Logica logica, Map posNoPoner){
 		controlador = logica;
 		cuerpo = new LinkedList<Celda>();
 		graficos = new CriaturaGrafica();
 		//Se inicializa la criatura
-		cuerpo.addFirst(controlador.getCelda(15,6));
+
+		Random random = new Random();
+		int posx =  random.nextInt(19);
+		int posy =  random.nextInt(19);
+		System.out.println("("+posx+","+posy+")");
+
+
+		 while(posNoPoner.get(controlador.getCelda(posx,posy))!= null){
+			  posx =  random.nextInt(19);
+			  posy =  random.nextInt(19);
+			 System.out.println("("+posx+","+posy+")");
+		 };
+
+
+		cuerpo.addFirst(controlador.getCelda(posx,posy));
 		cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
-		cuerpo.addLast(controlador.getCelda(16,6));
+		cuerpo.addLast(controlador.getCelda(posx+1,posy));
 		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
-		cuerpo.addLast(controlador.getCelda(17,6));
+		cuerpo.addLast(controlador.getCelda(posx+2,posy));
 		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 		direccion = 'a';
 		estaViva = true;
+		juegoAndando = true;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
-		while(estaViva){
+		while(estaViva && juegoAndando){
 			mover();
 			try {
 				sleep(100);
@@ -41,8 +58,17 @@ public class Criatura extends Thread {
 				throw new RuntimeException(e);
 			}
 		}
-		controlador.mostrarPuntajes();
+		if(!estaViva) controlador.mostrarPuntajes();
 		this.stop();
+		for(Celda c: cuerpo){
+			c.desocupar();
+		}
+		cuerpo = new LinkedList<>();
+	}
+
+
+	public void setJuegoAndando(boolean esta){
+		juegoAndando = esta;
 	}
 
 	public void setEstaViva(boolean viva) {
@@ -95,7 +121,7 @@ public class Criatura extends Thread {
 		}
 
 		nuevaCabeza.efecto(this);
-		if(estaViva){
+		if(estaViva && juegoAndando){
 			nuevaCabeza.setOcupada(graficos.getImagenCabeza());
 			cuerpo.getFirst().setOcupada(graficos.getImagenCuerpo());
 			cuerpo.addFirst(nuevaCabeza);

@@ -14,6 +14,8 @@ public class Ventana implements KeyListener {
 	private int largoVentana = 850;
 	private int anchoVentana = 900;
 	private Logica logica;
+
+	private JLabel puntaje;
 	private DefaultTableModel modelo;
 	private JPopupMenu popRanking;
 	
@@ -52,6 +54,12 @@ public class Ventana implements KeyListener {
 		Mpuntaje.setForeground(Color.WHITE);
 		Mpuntaje.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		menuBar.add(Mpuntaje);
+
+		puntaje = new JLabel("0");
+		puntaje.setBackground(Color.BLACK);
+		puntaje.setForeground(Color.WHITE);
+		puntaje.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		menuBar.add(puntaje);
 		
 		JLabel t = new JLabel("00:00:00");
 		t.setBackground(Color.BLACK);
@@ -164,6 +172,10 @@ public class Ventana implements KeyListener {
 		}
 		popRanking.setVisible(true);
 		popRanking.setLocation(largoVentana/2, anchoVentana/2);
+	}
+
+	public void setPuntaje(String puntos){
+		puntaje.setText(puntos);
 	}
 	
 	public String ingresarNombre() {
