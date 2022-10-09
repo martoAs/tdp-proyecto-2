@@ -107,6 +107,9 @@ public class Logica {
 							if(col>0) posImposibles.put(tablero[col-1][fila],1);
 							if(col-1>0) posImposibles.put(tablero[col-2][fila],1);
 							if(col<19) posImposibles.put(tablero[col+1][fila],1);
+							if(col+1<19) posImposibles.put(tablero[col+2][fila],1);
+							if(col+2<19) posImposibles.put(tablero[col+3][fila],1);
+							if(col+3<19) posImposibles.put(tablero[col+4][fila],1);
 						}
 						case '.' -> {
 							Celda fondo = tablero[col][fila];
@@ -219,7 +222,10 @@ public class Logica {
 	public void terminoNivel(){
 		nivel++;
 		criatura.setJuegoAndando(false);
-		iniciarNivel(nivel, tam);
+		if(nivel<6)		iniciarNivel(nivel, tam);
+		else{
+			//GANASTE EL JUEGO
+		}
 	}
 	
 	public Ranking getRanking() {

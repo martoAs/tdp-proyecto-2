@@ -137,6 +137,9 @@ public class Criatura extends Thread {
 
 	public void cambiarSkin(int estado) {
 		graficos.cambiarEstado(estado);
+		for(Celda c: cuerpo){
+			c.setOcupada(graficos.getImagenCuerpo());
+		}
 	}
 	
 	public void agrandarCriatura(int tam) {
