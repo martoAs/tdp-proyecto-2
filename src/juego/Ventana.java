@@ -18,6 +18,7 @@ public class Ventana implements KeyListener {
 	private JLabel puntaje;
 	private DefaultTableModel modelo;
 	private JPopupMenu popRanking;
+	private JMenuItem MRanking;
 	
 	public void initialize() {
 		int tamCelda = 35;
@@ -94,11 +95,14 @@ public class Ventana implements KeyListener {
 		popRanking.add(tablaRanking);
 		
 		JOptionPane popNombre;
-		JMenuItem MRanking = new JMenuItem("Ver ranking");
+		MRanking = new JMenuItem("Ver ranking");
 		MRanking.addActionListener(new ActionListener() { //Cuando se presiona despliega un popUp con el ranking
 			public void actionPerformed(ActionEvent a){
 				cargarRanking();
-				popRanking.setLocation(100 + largoVentana, anchoVentana/2);
+				Point locacion = (Point) MRanking.getLocationOnScreen().clone();
+				locacion.move((int)locacion.getX(), (int) locacion.getY() + 25);
+				
+				popRanking.setLocation(locacion);
 			}
 		});
 		
@@ -165,13 +169,20 @@ public class Ventana implements KeyListener {
 	}
 
 	public void cargarRanking() {
+		modelo.setRowCount(0);
 		Ranking ranking = logica.getRanking();
-		for(int i=0; i < 5; i++) {
-			Jugador jugador = ranking.getJugador(i);
-			modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );
+		if(ranking.getSize() > 0) {
+			for(int i=0; i < ranking.getSize(); i++) {
+				Jugador jugador = ranking.getJugador(i);
+				modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );
+			}
+		
+			popRanking.setVisible(true);
+			Point locacion = (Point) MRanking.getLocationOnScreen().clone();
+			locacion.move((int)locacion.getX(), (int) locacion.getY() + 25);
+			
+			popRanking.setLocation(locacion);
 		}
-		popRanking.setVisible(true);
-		popRanking.setLocation(largoVentana/2, anchoVentana/2);
 	}
 
 	public void setPuntaje(String puntos){
@@ -179,7 +190,7 @@ public class Ventana implements KeyListener {
 	}
 	
 	public String ingresarNombre() {
-		String nombreJugador = JOptionPane.showInputDialog(new JFrame(), "Ingrese su nombre para participar del ranking: ", "Ganaste!", JOptionPane.YES_OPTION);
+		String nombreJugador = JOptionPane.showInputDialog(new JFrame(), "Ingrese su nombre para participar del ranking: ", "Fin del juego!", JOptionPane.YES_OPTION);
 		return nombreJugador;
 	}
 }

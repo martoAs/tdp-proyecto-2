@@ -21,7 +21,7 @@ import consumibles.Sapo;
 public class Logica {
 	
 	protected int puntaje;
-	protected String tiempo; 
+	//protected String tiempo; 
 	protected LinkedList<String> archivos;
 	
 	protected Criatura criatura;
@@ -59,6 +59,7 @@ public class Logica {
 		iniciarNivel(nivel, this.tam);
 		this.ventana = ventana;
 		time = new Reloj(l);
+		ranking = new Ranking("prueba");
 		
 	}
 	
@@ -211,7 +212,7 @@ public class Logica {
 		time.setFinished(true);
 		String nombre = ventana.ingresarNombre();
 		if(nombre != null) { //El usuario presiono aceptar 
-			Jugador jugador = new Jugador(nombre, puntaje, tiempo);
+			Jugador jugador = new Jugador(nombre, puntaje, time.getTiempo().toString());
 			ranking.agregarJugador(jugador);
 			ranking.ordenarPorPuntaje();
 			ranking.ordenarPorTiempo();
@@ -222,7 +223,8 @@ public class Logica {
 	public void terminoNivel(){
 		nivel++;
 		criatura.setJuegoAndando(false);
-		if(nivel<6)		iniciarNivel(nivel, tam);
+		if(nivel<6)	
+			iniciarNivel(nivel, tam);
 		else{
 			//GANASTE EL JUEGO
 		}

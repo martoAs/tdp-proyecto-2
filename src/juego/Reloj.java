@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 public class Reloj extends Thread{
 	boolean finished;
 	JLabel label;
+	Time tiempo;
 	
 	public Reloj(JLabel l) {
 		finished = false;
@@ -14,7 +15,7 @@ public class Reloj extends Thread{
 	}
 	
 	public void run() {
-		Time tiempo = new Time(0);
+		tiempo = new Time(0);
 		tiempo.setHours(0);
 		while(!finished) {
 			try {
@@ -33,5 +34,9 @@ public class Reloj extends Thread{
 	
 	public void setFinished(boolean f) {
 		finished = f;
+	}
+	
+	public Time getTiempo() {
+		return tiempo;
 	}
 }

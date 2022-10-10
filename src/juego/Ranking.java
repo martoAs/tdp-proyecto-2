@@ -89,4 +89,8 @@ public class Ranking implements Serializable {
 	public Jugador getJugador(int pos) {
 		return listaJugadores.get(pos);
 	}
+	
+	public int getSize() {
+		return listaJugadores.size();
+	}
 }
