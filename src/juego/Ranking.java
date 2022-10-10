@@ -15,8 +15,7 @@ public class Ranking implements Serializable {
 	public Ranking(String nombreArchivo) {
 		listaJugadores = new ArrayList<>();
 		lugarGuardado = nombreArchivo;
-		File file = new File("nombreArchivo");
-		
+		File file = new File(lugarGuardado);
 		try {
 			if(!file.exists())
 				file.createNewFile();
@@ -85,6 +84,26 @@ public class Ranking implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public Ranking abrir() {
+		Ranking res = null;
+		try {
+			FileInputStream file = new FileInputStream(lugarGuardado); 
+			ObjectInputStream in = new ObjectInputStream(file); 
+          
+			// Method for deserialization of object 
+			res = (Ranking) in.readObject(); 
+          
+			in.close(); 
+			file.close(); 
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		 catch(ClassNotFoundException ex) { 
+            System.out.println("Clase no encontrada"); 
+        } 
+		return res;
+	}
 
 	public Jugador getJugador(int pos) {
 		return listaJugadores.get(pos);
@@ -92,5 +111,11 @@ public class Ranking implements Serializable {
 	
 	public int getSize() {
 		return listaJugadores.size();
+	}
+	
+	public boolean existeArchivo() {
+		File f = new File(lugarGuardado);
+		boolean res = f.exists() && f.length() != 0;
+		return res;
 	}
 }

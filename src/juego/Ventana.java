@@ -99,8 +99,7 @@ public class Ventana implements KeyListener {
 		MRanking.addActionListener(new ActionListener() { //Cuando se presiona despliega un popUp con el ranking
 			public void actionPerformed(ActionEvent a){
 				cargarRanking();
-				Point locacion = (Point) MRanking.getLocationOnScreen().clone();
-				locacion.move((int)locacion.getX(), (int) locacion.getY() + 25);
+				Point locacion = new Point((int) MRanking.getLocationOnScreen().getX(), (int) MRanking.getLocationOnScreen().getY() + 25);
 				
 				popRanking.setLocation(locacion);
 			}
@@ -171,6 +170,8 @@ public class Ventana implements KeyListener {
 	public void cargarRanking() {
 		modelo.setRowCount(0);
 		Ranking ranking = logica.getRanking();
+		if(ranking.existeArchivo())
+			ranking = ranking.abrir();
 		if(ranking.getSize() > 0) {
 			for(int i=0; i < ranking.getSize(); i++) {
 				Jugador jugador = ranking.getJugador(i);
@@ -178,8 +179,7 @@ public class Ventana implements KeyListener {
 			}
 		
 			popRanking.setVisible(true);
-			Point locacion = (Point) MRanking.getLocationOnScreen().clone();
-			locacion.move((int)locacion.getX(), (int) locacion.getY() + 25);
+			Point locacion = new Point((int) MRanking.getLocationOnScreen().getX(), (int) MRanking.getLocationOnScreen().getY() + 25);
 			
 			popRanking.setLocation(locacion);
 		}

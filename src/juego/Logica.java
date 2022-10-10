@@ -59,7 +59,10 @@ public class Logica {
 		iniciarNivel(nivel, this.tam);
 		this.ventana = ventana;
 		time = new Reloj(l);
-		ranking = new Ranking("prueba");
+		ranking = new Ranking("Ranking");
+		
+		if(ranking.existeArchivo())
+			ranking = ranking.abrir();
 		
 	}
 	
@@ -216,7 +219,9 @@ public class Logica {
 			ranking.agregarJugador(jugador);
 			ranking.ordenarPorPuntaje();
 			ranking.ordenarPorTiempo();
+			ranking.guardar();
 		}
+		
 		ventana.cargarRanking();
 	}
 	
