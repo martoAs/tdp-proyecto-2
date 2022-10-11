@@ -227,8 +227,9 @@ public class Logica {
 	
 	public void terminoNivel(){
 		nivel++;
-		criatura.setJuegoAndando(false);
-		if(nivel<6)	
+		
+		
+		if(nivel<5)	
 			iniciarNivel(nivel, tam);
 		else{
 			mostrarPuntajes();
@@ -258,6 +259,7 @@ public class Logica {
 				tablero[primero.getXenTablero()][primero.getYenTablero()].setConsumible(primero.getConsumible());
 		}
 		else
-			terminoNivel();
+			criatura.setJuegoAndando(false);
+			
 	}
 }

@@ -59,11 +59,10 @@ public class Criatura extends Thread {
 			}
 		}
 		if(!estaViva) controlador.mostrarPuntajes();
+		
+		if(!juegoAndando) controlador.terminoNivel();
 		this.stop();
-		for(Celda c: cuerpo){
-			c.desocupar();
-		}
-		cuerpo = new LinkedList<>();
+		
 	}
 
 
@@ -121,7 +120,7 @@ public class Criatura extends Thread {
 		}
 
 		nuevaCabeza.efecto(this);
-		if(estaViva && juegoAndando){
+		if(estaViva){
 			nuevaCabeza.setOcupada(graficos.getImagenCabeza());
 			cuerpo.getFirst().setOcupada(graficos.getImagenCuerpo());
 			cuerpo.addFirst(nuevaCabeza);
@@ -133,6 +132,14 @@ public class Criatura extends Thread {
 			}
 
 		}
+		if(!juegoAndando) {
+			for(Celda c: cuerpo){
+				c.desocupar();
+			}
+			cuerpo = new LinkedList<>();
+			
+		}
+		
 	}
 
 	public void cambiarSkin(int estado) {
