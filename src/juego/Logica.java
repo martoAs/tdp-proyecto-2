@@ -34,6 +34,7 @@ public class Logica {
 	protected List<Celda> celdasConConsumible;
 	protected int nivel;
 	protected int tam;
+	protected JLabel labelReloj;
 
 	public Logica (int tam, Ventana ventana,JLabel l){
 		//Se crea el tablero
@@ -58,7 +59,8 @@ public class Logica {
 		
 		iniciarNivel(nivel, this.tam);
 		this.ventana = ventana;
-		time = new Reloj(l);
+		labelReloj = l;
+		time = new Reloj(labelReloj);
 		ranking = new Ranking("Ranking");
 		
 		if(ranking.existeArchivo())
@@ -101,7 +103,7 @@ public class Logica {
 
 			for(int fila = 0; fila < filas.size(); fila++) {
 				for(int col = 0; col < 20; col++) {
-					System.out.print(filas.get(fila).charAt(col));
+					//System.out.print(filas.get(fila).charAt(col));
 					switch(filas.get(fila).charAt(col)) {
 						case '#' -> {
 							Celda pared = tablero[col][fila];
@@ -197,7 +199,7 @@ public class Logica {
  					}
 				}
 
-				System.out.println();
+				//System.out.println();
 			}
 			
 			ponerConsumible();
@@ -233,6 +235,11 @@ public class Logica {
 			iniciarNivel(nivel, tam);
 		else{
 			mostrarPuntajes();
+			puntaje = 0;
+			time = new Reloj(labelReloj);
+			nivel = 0;
+			iniciarNivel(nivel, tam);
+			empezarJuego();
 		}
 	}
 	
@@ -240,21 +247,30 @@ public class Logica {
 		return ranking;
 	}
 	
-	/*public int sizeConsumibles(){
-		return celdasConConsumible.size();
-	}
-	*/
 	public void ponerConsumible() {
 		if(celdasConConsumible.size() > 0) {
 				Random rand = new Random();
 				int random = rand.nextInt(celdasConConsumible.size());
+				System.out.println(rand.nextInt(1));
 				Celda primero = celdasConConsumible.get(random);
 				celdasConConsumible.remove(random);
+				
+				
 				while(tablero[primero.getXenTablero()][primero.getYenTablero()].estaOcupada()==true){
+					
+					if(celdasConConsumible.size() == 0)
+						random = 0;
+					else {
+						random = rand.nextInt(celdasConConsumible.size());
+						primero = celdasConConsumible.get(random);
+						celdasConConsumible.remove(random);
+					}
+					
 					random = rand.nextInt(celdasConConsumible.size());
 					primero = celdasConConsumible.get(random);
 					celdasConConsumible.remove(random);
 				}
+				
 
 				tablero[primero.getXenTablero()][primero.getYenTablero()].setConsumible(primero.getConsumible());
 		}
