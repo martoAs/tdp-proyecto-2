@@ -97,7 +97,7 @@ public class Logica {
 		try {
 			filas = Files.readAllLines(archivoNivel);
 
-			Map posImposibles = new HashMap<Celda,Integer>();
+			Map<Celda,Integer> posImposibles = new HashMap<Celda,Integer>();
 
 			for(int fila = 0; fila < filas.size(); fila++) {
 				for(int col = 0; col < 20; col++) {
@@ -231,7 +231,7 @@ public class Logica {
 		if(nivel<6)	
 			iniciarNivel(nivel, tam);
 		else{
-			//GANASTE EL JUEGO
+			mostrarPuntajes();
 		}
 	}
 	
@@ -239,6 +239,10 @@ public class Logica {
 		return ranking;
 	}
 	
+	/*public int sizeConsumibles(){
+		return celdasConConsumible.size();
+	}
+	*/
 	public void ponerConsumible() {
 		if(celdasConConsumible.size() > 0) {
 				Random rand = new Random();

@@ -10,7 +10,7 @@ public class Ranking implements Serializable {
 	//public listadoJugador; 
 	protected List<Jugador> listaJugadores;
 	private String lugarGuardado;
-	private static final int NUMERO_JUGADORES = 10;
+	private static final int NUMERO_JUGADORES = 5;
 	
 	public Ranking(String nombreArchivo) {
 		listaJugadores = new ArrayList<>();
