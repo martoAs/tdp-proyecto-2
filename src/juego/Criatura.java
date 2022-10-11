@@ -53,7 +53,7 @@ public class Criatura extends Thread {
 		while(estaViva && juegoAndando){
 			mover();
 			try {
-				sleep(100);
+				sleep(130);
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			}

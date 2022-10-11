@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Ventana implements KeyListener {
 
-	private int largoVentana = 850;
-	private int anchoVentana = 900;
+	private int largoVentana = 750;
+	private int anchoVentana = 850;
 	private Logica logica;
 
 	private JLabel puntaje;
@@ -21,11 +21,11 @@ public class Ventana implements KeyListener {
 	private JMenuItem MRanking;
 	
 	public void initialize() {
-		int tamCelda = 35;
+		int tamCelda = 28;
 		
 		//Creamos el frame de la ventana
 		JFrame frame = new JFrame();
-		frame.setBounds(100, 100, largoVentana, anchoVentana);
+		frame.setBounds(300, 20, largoVentana, anchoVentana);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.addKeyListener(this);
@@ -46,7 +46,7 @@ public class Ventana implements KeyListener {
 		//Creamos el menu para mostrar puntaje, tiempo y el ranking, se incluye en el frame
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.BLACK);
-		menuBar.setBorder(new EmptyBorder(0, 100, 0, -100));
+		menuBar.setBorder(new EmptyBorder(0, 10, 0, -10));
 		
 		JMenuItem Mpuntaje = new JMenuItem("PUNTAJE: ");
 	
