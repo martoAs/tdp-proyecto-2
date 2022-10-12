@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.*;
 
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 
 import consumibles.Arania;
 import consumibles.Consumible;
@@ -34,6 +33,7 @@ public class Logica {
 	protected List<Celda> celdasConConsumible;
 	protected int nivel;
 	protected int tam;
+	protected JLabel labelReloj;
 
 	public Logica (int tam, Ventana ventana,JLabel l){
 		//Se crea el tablero
@@ -50,15 +50,16 @@ public class Logica {
 		
 		//Listado de niveles
 		archivos = new LinkedList<String>();
-		archivos.add("src/niveles/nivel1.txt");
-		archivos.add("src/niveles/nivel2.txt");
-		archivos.add("src/niveles/nivel3.txt");
-		archivos.add("src/niveles/nivel4.txt");
-		archivos.add("src/niveles/nivel5.txt"); 
+		archivos.add("src/archivos/nivel1.txt");
+		archivos.add("src/archivos/nivel2.txt");
+		archivos.add("src/archivos/nivel3.txt");
+		archivos.add("src/archivos/nivel4.txt");
+		archivos.add("src/archivos/nivel5.txt"); 
 		
 		iniciarNivel(nivel, this.tam);
 		this.ventana = ventana;
-		time = new Reloj(l);
+		labelReloj = l;
+		time = new Reloj(labelReloj);
 		ranking = new Ranking("Ranking");
 		
 		if(ranking.existeArchivo())
@@ -101,7 +102,7 @@ public class Logica {
 
 			for(int fila = 0; fila < filas.size(); fila++) {
 				for(int col = 0; col < 20; col++) {
-					System.out.print(filas.get(fila).charAt(col));
+					//System.out.print(filas.get(fila).charAt(col));
 					switch(filas.get(fila).charAt(col)) {
 						case '#' -> {
 							Celda pared = tablero[col][fila];
@@ -197,7 +198,7 @@ public class Logica {
  					}
 				}
 
-				System.out.println();
+				//System.out.println();
 			}
 			
 			ponerConsumible();
@@ -217,8 +218,8 @@ public class Logica {
 		if(nombre != null) { //El usuario presiono aceptar 
 			Jugador jugador = new Jugador(nombre, puntaje, time.getTiempo().toString());
 			ranking.agregarJugador(jugador);
-			ranking.ordenarPorPuntaje();
-			ranking.ordenarPorTiempo();
+			ranking.ordenar();
+			ranking.ordenar();
 			ranking.guardar();
 		}
 		
@@ -233,6 +234,11 @@ public class Logica {
 			iniciarNivel(nivel, tam);
 		else{
 			mostrarPuntajes();
+			puntaje = 0;
+			time = new Reloj(labelReloj);
+			nivel = 0;
+			iniciarNivel(nivel, tam);
+			empezarJuego();
 		}
 	}
 	
@@ -240,21 +246,30 @@ public class Logica {
 		return ranking;
 	}
 	
-	/*public int sizeConsumibles(){
-		return celdasConConsumible.size();
-	}
-	*/
 	public void ponerConsumible() {
 		if(celdasConConsumible.size() > 0) {
 				Random rand = new Random();
 				int random = rand.nextInt(celdasConConsumible.size());
+				System.out.println(rand.nextInt(1));
 				Celda primero = celdasConConsumible.get(random);
 				celdasConConsumible.remove(random);
+				
+				
 				while(tablero[primero.getXenTablero()][primero.getYenTablero()].estaOcupada()==true){
+					
+					if(celdasConConsumible.size() == 0)
+						random = 0;
+					else {
+						random = rand.nextInt(celdasConConsumible.size());
+						primero = celdasConConsumible.get(random);
+						celdasConConsumible.remove(random);
+					}
+					
 					random = rand.nextInt(celdasConConsumible.size());
 					primero = celdasConConsumible.get(random);
 					celdasConConsumible.remove(random);
 				}
+				
 
 				tablero[primero.getXenTablero()][primero.getYenTablero()].setConsumible(primero.getConsumible());
 		}

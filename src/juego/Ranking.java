@@ -7,7 +7,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class Ranking implements Serializable {
 	
-	//public listadoJugador; 
+	private static final long serialVersionUID = 1L;
 	protected List<Jugador> listaJugadores;
 	private String lugarGuardado;
 	private static final int NUMERO_JUGADORES = 5;
@@ -20,33 +20,27 @@ public class Ranking implements Serializable {
 			if(!file.exists())
 				file.createNewFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void ordenarPorPuntaje() {
+	/*Ordena por puntaje de forma descendiente, si son iguales posiciona el de menor tiempo arriba */
+	public void ordenar() {
 		listaJugadores.sort(new Comparator<Jugador>() {
 
 			@Override
 			public int compare(Jugador jug1, Jugador jug2) {
 				Integer puntaje1 = jug1.getPuntaje();
 				Integer puntaje2 = jug2.getPuntaje();
-				return puntaje1.compareTo(puntaje2);
-			}
-			
-		});
-	}
-	
-	public void ordenarPorTiempo() {
-		listaJugadores.sort(new Comparator<Jugador>() {
-			
-
-			@Override
-			public int compare(Jugador jug1, Jugador jug2) {
-				String tiempo1 = jug1.getTiempo();
-				String tiempo2 = jug2.getTiempo();
-				return tiempo1.compareTo(tiempo2);
+				int comparacion =  puntaje2.compareTo(puntaje1);
+				if(comparacion != 0){ 
+					return comparacion;
+				}
+				else { //Los puntajes son iguales
+					String tiempo1 = jug1.getTiempo();
+					String tiempo2 = jug2.getTiempo();
+					return tiempo1.compareTo(tiempo2);
+				}
 			}
 			
 		});
@@ -56,7 +50,7 @@ public class Ranking implements Serializable {
 		boolean resultado = false;
 		if(listaJugadores.size() < NUMERO_JUGADORES) {
 			listaJugadores.add(jug);
-			ordenarPorPuntaje();
+			ordenar();
 			resultado = true;
 		}
 		else {
@@ -64,7 +58,7 @@ public class Ranking implements Serializable {
 			if(jug.getPuntaje() > jugMenosPuntaje.getPuntaje()) {
 				listaJugadores.remove(jugMenosPuntaje);
 				listaJugadores.add(jug);
-				ordenarPorPuntaje();
+				ordenar();
 				resultado = true;
 			}
 		}
@@ -91,7 +85,6 @@ public class Ranking implements Serializable {
 			FileInputStream file = new FileInputStream(lugarGuardado); 
 			ObjectInputStream in = new ObjectInputStream(file); 
           
-			// Method for deserialization of object 
 			res = (Ranking) in.readObject(); 
           
 			in.close(); 
