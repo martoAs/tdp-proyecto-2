@@ -181,6 +181,14 @@ public class Ventana implements KeyListener {
 				Jugador jugador = ranking.getJugador(i);
 				modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );
 			}
+<<<<<<< HEAD
+=======
+			
+			popRanking.setVisible(true);
+			Point locacion = new Point((int) MRanking.getLocationOnScreen().getX(), (int) MRanking.getLocationOnScreen().getY() + 25);
+			
+			popRanking.setLocation(locacion);
+>>>>>>> 9d399b5bfecabd86bc19e87aea61d187619b43d7
 		}
 	}
 
