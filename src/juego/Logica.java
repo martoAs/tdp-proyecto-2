@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.*;
 
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 
 import consumibles.Arania;
 import consumibles.Consumible;
@@ -51,11 +50,11 @@ public class Logica {
 		
 		//Listado de niveles
 		archivos = new LinkedList<String>();
-		archivos.add("src/niveles/nivel1.txt");
-		archivos.add("src/niveles/nivel2.txt");
-		archivos.add("src/niveles/nivel3.txt");
-		archivos.add("src/niveles/nivel4.txt");
-		archivos.add("src/niveles/nivel5.txt"); 
+		archivos.add("src/archivos/nivel1.txt");
+		archivos.add("src/archivos/nivel2.txt");
+		archivos.add("src/archivos/nivel3.txt");
+		archivos.add("src/archivos/nivel4.txt");
+		archivos.add("src/archivos/nivel5.txt"); 
 		
 		iniciarNivel(nivel, this.tam);
 		this.ventana = ventana;
@@ -219,8 +218,8 @@ public class Logica {
 		if(nombre != null) { //El usuario presiono aceptar 
 			Jugador jugador = new Jugador(nombre, puntaje, time.getTiempo().toString());
 			ranking.agregarJugador(jugador);
-			ranking.ordenarPorPuntaje();
-			ranking.ordenarPorTiempo();
+			ranking.ordenar();
+			ranking.ordenar();
 			ranking.guardar();
 		}
 		
