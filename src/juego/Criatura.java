@@ -17,36 +17,66 @@ public class Criatura extends Thread {
 
 	protected int celdasAgregadas ;
 
-	public Criatura(Logica logica, Map posNoPoner){
+	public Criatura(Logica logica){
 		controlador = logica;
 		cuerpo = new LinkedList<Celda>();
 		graficos = new CriaturaGrafica();
-		//Se inicializa la criatura
-
-		Random random = new Random();
-		int posx =  random.nextInt(19);
-		int posy =  random.nextInt(19);
-		System.out.println("("+posx+","+posy+")");
-
-
-		 while(posNoPoner.get(controlador.getCelda(posx,posy))!= null){
-			  posx =  random.nextInt(19);
-			  posy =  random.nextInt(19);
-			 System.out.println("("+posx+","+posy+")");
-		 };
-
-
-		cuerpo.addFirst(controlador.getCelda(posx,posy));
-		cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
-		cuerpo.addLast(controlador.getCelda(posx+1,posy));
-		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
-		cuerpo.addLast(controlador.getCelda(posx+2,posy));
-		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
-		direccion = 'a';
 		estaViva = true;
 		juegoAndando = true;
 	}
 
+	public void elegirDireccion() {
+		Random random = new Random();
+		switch(random.nextInt(4)) {
+		case 0:
+			direccion = 'w';
+			break;
+		case 1:
+			direccion = 'a';
+			break;
+		case 2:
+			direccion = 's';
+			break;
+		case 3:
+			direccion = 'd';
+			break;
+		}  
+	}
+	
+	public void elegirPosicionCriatura(Map<Celda,Integer> posNoPoner) {
+		/* Elegimos donde comienza la criatura aleatoriamente entre las posiciones sin ocupar.
+		 * La criatura siempre comienza como tres bloques horizontales, se utiliza la misma inicializacion 
+		 * para todas las posiciones (cabeza - cuerpo) excepto para la izquierda (cuerpo - cabeza)
+		 * pues se perderia el juego */
+		
+		Random random = new Random();
+		
+		int posx_cabeza =  random.nextInt(19);
+		int posy_cabeza =  random.nextInt(19);
+		
+		while(posNoPoner.get(controlador.getCelda(posx_cabeza,posy_cabeza))!= null){
+			  posx_cabeza =  random.nextInt(19);
+			  posy_cabeza =  random.nextInt(19);
+		 };
+
+		if(direccion == 'd') {
+			cuerpo.addFirst(controlador.getCelda(posx_cabeza,posy_cabeza));
+			cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
+			cuerpo.addLast(controlador.getCelda(posx_cabeza-1,posy_cabeza));
+			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
+			cuerpo.addLast(controlador.getCelda(posx_cabeza-2,posy_cabeza));
+			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
+		}
+		else {
+			cuerpo.addFirst(controlador.getCelda(posx_cabeza,posy_cabeza));
+			cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
+			cuerpo.addLast(controlador.getCelda(posx_cabeza+1,posy_cabeza));
+			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
+			cuerpo.addLast(controlador.getCelda(posx_cabeza+2,posy_cabeza));
+			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
+		}
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {

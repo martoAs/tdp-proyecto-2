@@ -5,8 +5,6 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,12 +16,13 @@ public class Ventana implements KeyListener {
 
 	private JLabel puntaje;
 	private DefaultTableModel modelo;
+	private JFrame frame;
 	
 	public void initialize() {
 		int tamCelda = 28;
 		
 		//Creamos el frame de la ventana
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.setBounds(300, 20, largoVentana, anchoVentana);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -181,14 +180,6 @@ public class Ventana implements KeyListener {
 				Jugador jugador = ranking.getJugador(i);
 				modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );
 			}
-<<<<<<< HEAD
-=======
-			
-			popRanking.setVisible(true);
-			Point locacion = new Point((int) MRanking.getLocationOnScreen().getX(), (int) MRanking.getLocationOnScreen().getY() + 25);
-			
-			popRanking.setLocation(locacion);
->>>>>>> 9d399b5bfecabd86bc19e87aea61d187619b43d7
 		}
 	}
 
@@ -199,7 +190,16 @@ public class Ventana implements KeyListener {
 	
 	//Muestra la ventana en la que el usuario ingresa su nombre para ingresar al ranking
 	public String ingresarNombre() {
-		String nombreJugador = JOptionPane.showInputDialog(new JFrame(), "Ingrese su nombre para participar del ranking: ", "Fin del juego!", JOptionPane.YES_OPTION);
+		UIManager.put("OptionPane.background", Color.DARK_GRAY);
+		UIManager.put("Panel.background", Color.DARK_GRAY); 
+		UIManager.put("Button.background", Color.LIGHT_GRAY);
+		JPanel ventanaNombre = new JPanel(new FlowLayout());
+		ventanaNombre.setBackground(Color.DARK_GRAY);
+		JLabel mensaje = new JLabel("Ingrese su nombre para participar del ranking: ");
+		mensaje.setForeground(Color.WHITE);
+		ventanaNombre.add(mensaje);
+		
+		String nombreJugador = JOptionPane.showInputDialog(frame, ventanaNombre, "Fin del juego!", JOptionPane.PLAIN_MESSAGE);
 		return nombreJugador;
 	}
 }
