@@ -1,3 +1,4 @@
+
 package juego;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -190,9 +191,11 @@ public class Ventana implements KeyListener {
 	
 	//Muestra la ventana en la que el usuario ingresa su nombre para ingresar al ranking
 	public String ingresarNombre() {
+		//Cambiamos variables del JOptionPane y creamos el JPanel para el JOptionPane
 		UIManager.put("OptionPane.background", Color.DARK_GRAY);
 		UIManager.put("Panel.background", Color.DARK_GRAY); 
 		UIManager.put("Button.background", Color.LIGHT_GRAY);
+		
 		JPanel ventanaNombre = new JPanel(new FlowLayout());
 		ventanaNombre.setBackground(Color.DARK_GRAY);
 		JLabel mensaje = new JLabel("Ingrese su nombre para participar del ranking: ");
@@ -203,3 +206,4 @@ public class Ventana implements KeyListener {
 		return nombreJugador;
 	}
 }
+

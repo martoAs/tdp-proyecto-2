@@ -1,3 +1,4 @@
+
 package juego;
 
 import java.io.IOException;
@@ -20,7 +21,6 @@ import consumibles.Sapo;
 public class Logica {
 	
 	protected int puntaje;
-	//protected String tiempo; 
 	protected LinkedList<String> archivos;
 	
 	protected Criatura criatura;
@@ -150,7 +150,6 @@ public class Logica {
 						case '.' -> {
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 'r' -> {
 							Ratita rat = new Ratita();
@@ -159,7 +158,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						
 						case 'l' -> {
@@ -169,7 +167,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 'p' -> {
 							Pescado pez = new Pescado();
@@ -178,7 +175,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 'i' -> {
 							Arania julian = new Arania(); // :)
@@ -187,7 +183,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo =tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 't' -> {
 							Sapo sapo = new Sapo();
@@ -196,7 +191,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo =tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 'd' -> {
 							Psicodelico psi = new Psicodelico();
@@ -205,7 +199,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 'f' -> {
 							Futbol fulvo = new Futbol();
@@ -214,7 +207,6 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						case 'c' -> {
 							Redondito redondo = new Redondito();
@@ -223,20 +215,17 @@ public class Logica {
 							celdasConConsumible.add(fondoAux);
 							Celda fondo = tablero[col][fila];
 							fondo.desocupar();
-							//tablero[col][fila] = fondo;
 						}
 						
  					}
 				}
 
-				//System.out.println();
 			}
 			
 			criatura.elegirPosicionCriatura(posImposibles);
 			ponerConsumible();
 			criatura.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -308,3 +297,4 @@ public class Logica {
 			
 	}
 }
+
