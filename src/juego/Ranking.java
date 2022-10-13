@@ -8,7 +8,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class Ranking implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
 	protected List<Jugador> listaJugadores;
 	private String lugarGuardado;
 	private static final int NUMERO_JUGADORES = 5;

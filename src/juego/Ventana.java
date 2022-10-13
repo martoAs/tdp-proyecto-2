@@ -11,18 +11,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Ventana implements KeyListener {
 
-	private int largoVentana = 600;
-	private int anchoVentana = 600;
+	private int largoVentana = 700;
+	private int anchoVentana = 700;
 	private Logica logica;
 
 	private JLabel puntaje;
-	private DefaultTableModel modelo;
 	private JFrame frame;
 	private JPopupMenu popRanking;
+	private JTable tablaRanking;
+	private DefaultTableModel modelo;
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public void initialize() {
 		
 		Font fuente = null;
@@ -32,11 +38,10 @@ public class Ventana implements KeyListener {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(fuente);
 		} catch (IOException|FontFormatException e) {
-		     //Handle exception
 			e.printStackTrace();
 		}
 		
-		int tamCelda = 20;
+		int tamCelda = 25;
 		
 		//Creamos el frame de la ventana
 		frame = new JFrame();
@@ -47,11 +52,13 @@ public class Ventana implements KeyListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.addKeyListener(this);
-		frame.getContentPane().setLayout(new BorderLayout());
+		BorderLayout borderLayout = new BorderLayout();
+		frame.getContentPane().setLayout(borderLayout);
 		
 		//Creamos el panel que contiene al juego, se incluye en el frame
 		JPanel panelJuego = new JPanel();
-		panelJuego.setBackground(Color.BLACK);
+		panelJuego.setBackground(Color.black);
+		panelJuego.setPreferredSize(new Dimension(largoVentana - 100, anchoVentana-100));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
 		gridBagLayout.rowHeights = new int[] {tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda,tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda, tamCelda};
@@ -59,17 +66,14 @@ public class Ventana implements KeyListener {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0};
 		panelJuego.setLayout(gridBagLayout);
 		frame.getContentPane().add(panelJuego);
-		
-		
+
 		//Creamos el menu para mostrar puntaje, tiempo y el ranking, se incluye en el frame
 		JMenuBar menuBar = new JMenuBar();
-		
 		menuBar.setBackground(Color.BLACK);
-		menuBar.setBorder(new EmptyBorder(0, anchoVentana/5, 0, anchoVentana/5));
 		
 		JMenuItem Mpuntaje = new JMenuItem("PUNTAJE: ");
 		Mpuntaje.setHorizontalAlignment(SwingConstants.CENTER);
-		Mpuntaje.setPreferredSize(new Dimension(100, 10));
+		Mpuntaje.setMaximumSize(new Dimension(120, 20));
 		Mpuntaje.setEnabled(false);
 		Mpuntaje.setBackground(Color.BLACK);
 		Mpuntaje.setForeground(Color.WHITE);
@@ -79,12 +83,13 @@ public class Ventana implements KeyListener {
 		puntaje = new JLabel("0");
 		puntaje.setBackground(Color.BLACK);
 		puntaje.setForeground(Color.WHITE);
+		puntaje.setBorder(new EmptyBorder(0, 0, 0, 0));
 		puntaje.setFont(fuente.deriveFont(15f));
 		menuBar.add(puntaje);
 		
 		JMenuItem Mtiempo = new JMenuItem("TIEMPO: ");
 		Mtiempo.setHorizontalAlignment(SwingConstants.CENTER);
-		Mtiempo.setPreferredSize(new Dimension(100, 10));
+		Mtiempo.setMaximumSize(new Dimension(120, 20));
 		Mtiempo.setEnabled(false);
 		Mtiempo.setBackground(Color.BLACK);
 		Mtiempo.setForeground(Color.WHITE);
@@ -97,21 +102,46 @@ public class Ventana implements KeyListener {
 		t.setFont(fuente.deriveFont(15f));
 		menuBar.add(t);
 		
-		frame.setJMenuBar(menuBar);
-		
-		//tabla y popUp del ranking
-		JTable tablaRanking = new JTable();
-		tablaRanking.setForeground(Color.WHITE);
-		tablaRanking.setFont(fuente.deriveFont(10f));
-		tablaRanking.setBackground(Color.DARK_GRAY);
-		tablaRanking.setEnabled(false);
-		
-		modelo = new DefaultTableModel(6,3);
-		tablaRanking.setModel(modelo);
+		menuBar.add(Box.createGlue()); //Para que ranking quede a la derecha
+		JMenuItem Mranking = new JMenuItem("Ver Ranking");
+		Mranking.setHorizontalAlignment(SwingConstants.CENTER);
+		Mranking.setMaximumSize(new Dimension(140, 20));
+		Mranking.setEnabled(true);
+		Mranking.setBackground(Color.BLACK);
+		Mranking.setForeground(Color.WHITE);
+		Mranking.setFont(fuente.deriveFont(15f));
+		Mranking.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!popRanking.isVisible()) {
+					cargarRanking();
+				}
+				else popRanking.setVisible(false);		
+			}
+		});
 		
 		popRanking = new JPopupMenu();
 		popRanking.setVisible(false);
-		popRanking.add(tablaRanking);
+		popRanking.setBackground(Color.DARK_GRAY);
+		popRanking.setLocation(x + largoVentana - 240, y + 60);
+		menuBar.add(popRanking); 
+		
+		//Declaramos la tabla y su modelo para el popUp
+		modelo = new DefaultTableModel(new String[] {"Nombre", "Puntaje", "Tiempo"} , 3);
+		modelo.setRowCount(0);
+		tablaRanking = new JTable();
+		tablaRanking.setForeground(Color.WHITE);
+		tablaRanking.setBackground(Color.DARK_GRAY);
+		tablaRanking.setFont(fuente.deriveFont(15f));
+		tablaRanking.getTableHeader().setBackground(Color.BLACK);
+		tablaRanking.getTableHeader().setForeground(Color.WHITE);
+		tablaRanking.getTableHeader().setFont(fuente.deriveFont(15f));
+		tablaRanking.setEnabled(false);
+		tablaRanking.setVisible(true);
+		tablaRanking.setModel(modelo);
+		
+		menuBar.add(Mranking); 
+		frame.setJMenuBar(menuBar);
 		
 		//Insertamos las celdas al panel del juego
 		logica = new Logica(tamCelda, this, t);
@@ -128,33 +158,26 @@ public class Ventana implements KeyListener {
 			}
 		}
 		
-		logica.empezarJuego();
-		
-		/*El popUp del ranking se abre haciendo click en la pantalla, para ocultarlo hacer click nuevamente
-		 *no se muestra si el ranking esta vacio*/
-
-		frame.getContentPane().addMouseListener(new MouseAdapter() { 
-			public void mouseClicked(MouseEvent e) {
-				Ranking ranking = logica.getRanking();
-				
-				if(!popRanking.isVisible() && ranking.getSize() > 0) {
-					cargarRanking();
-					popRanking.setLocation(e.getXOnScreen(), e.getYOnScreen());
-				}
-				else{
-					popRanking.setVisible(false);
-				}
-			}
-			
-		});
+		//Seccion about, con la informacion de los integrantes del grupo
 		JPanel aboutPanel = new JPanel();
 		aboutPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-		aboutPanel.setPreferredSize(new Dimension(frame.getWidth(), 40));
-		aboutPanel.setLayout(new GridBagLayout());
-		JLabel aboutLabel = new JLabel("<html>Made by VIVIDOS INC.: Martina Asteasuain, Romina García <br>Rocio Zentrigen y Thomas Mintzer.</html>");
+		aboutPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
+		GridBagLayout gbl_aboutPanel = new GridBagLayout();
+		gbl_aboutPanel.rowWeights = new double[]{1.0};
+		gbl_aboutPanel.columnWeights = new double[]{1.0, 0.0};
+		aboutPanel.setLayout(gbl_aboutPanel);
 		aboutPanel.setBackground(Color.black);
-		aboutPanel.add(aboutLabel);
-		frame.add(aboutPanel, BorderLayout.SOUTH);
+		
+		JLabel aboutLabel = new JLabel("<html>Made by VIVIDOS INC.: Martina Asteasuain, Romina Garcia <br>Rocio Zentrigen y Thomas Mintzer.</html>");
+		aboutLabel.setFont(fuente.deriveFont(15f));
+		aboutLabel.setForeground(Color.GRAY);
+		GridBagConstraints gbc_aboutLabel = new GridBagConstraints();
+		gbc_aboutLabel.gridx = 1;
+		gbc_aboutLabel.gridy = 0;
+		aboutPanel.add(aboutLabel, gbc_aboutLabel);
+		frame.getContentPane().add(aboutPanel, BorderLayout.SOUTH);
+		
+		logica.empezarJuego();
 	}
 
 	@Override 
@@ -197,23 +220,31 @@ public class Ventana implements KeyListener {
 
 	//Accede a ranking para cargar los datos de los jugadores en la tabla del PopUp ranking
 	public void cargarRanking() {
+		
 		Ranking ranking = logica.getRanking();
 		if(ranking.getSize() > 0) {
-			modelo.setRowCount(0);
-			modelo.addRow(new Object[] {"NOMBRE", "PUNTAJE", "TIEMPO"});
+			if(popRanking.getComponentCount() == 1) popRanking.remove(0); 
+			popRanking.add(new JScrollPane(tablaRanking));
+			
+			//Obtenemos los jugadores de la clase Ranking y los agregamos a la tabla si no estaban 
 			if(ranking.existeArchivo())
 				ranking = ranking.abrir();
-
-			for(int i=0; i < ranking.getSize(); i++) {
+				int agregados = modelo.getRowCount(); 
+			for(int i= agregados; i < ranking.getSize(); i++) {
 				Jugador jugador = ranking.getJugador(i);
 				modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );
 			}
 		}
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (screenSize.width - popRanking.getWidth())/2;
-		int y = (screenSize.height - popRanking.getHeight())/2;
-		popRanking.setLocation(x, y);
+		else {
+			//Si no hay jugadores se muestra un mensaje en lugar de la tabla vacia
+			if(popRanking.getComponentCount() == 0) {
+				JLabel rankingVacio = new JLabel("No hay jugadores para mostrar");
+				rankingVacio.setBackground(Color.BLACK);
+				rankingVacio.setForeground(Color.WHITE);
+				rankingVacio.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+				popRanking.add(rankingVacio,0);
+			}
+		}
 		popRanking.setVisible(true);
 	}
 

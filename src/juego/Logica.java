@@ -60,7 +60,7 @@ public class Logica {
 		this.ventana = ventana;
 		labelReloj = l;
 		time = new Reloj(labelReloj);
-		ranking = new Ranking("Ranking");
+		ranking = new Ranking("src/archivos/Ranking");
 		
 		if(ranking.existeArchivo())
 			ranking = ranking.abrir();
@@ -235,10 +235,9 @@ public class Logica {
 	public void mostrarPuntajes() {
 		time.setFinished(true);
 		String nombre = ventana.ingresarNombre();
-		if(nombre != null) { //El usuario presiono aceptar 
+		if(nombre != null && nombre.length() != 0) { //El usuario presiono aceptar e ingreso un nombre
 			Jugador jugador = new Jugador(nombre, puntaje, time.getTiempo().toString());
 			ranking.agregarJugador(jugador);
-			ranking.ordenar();
 			ranking.ordenar();
 			ranking.guardar();
 		}
