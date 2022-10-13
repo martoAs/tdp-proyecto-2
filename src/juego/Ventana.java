@@ -18,13 +18,17 @@ public class Ventana implements KeyListener {
 	private JLabel puntaje;
 	private DefaultTableModel modelo;
 	private JFrame frame;
+	private JPopupMenu popRanking;
 	
 	public void initialize() {
 		int tamCelda = 28;
 		
 		//Creamos el frame de la ventana
 		frame = new JFrame();
-		frame.setBounds(300, 20, largoVentana, anchoVentana);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (screenSize.width - largoVentana) / 2;  
+		int y = (screenSize.height - anchoVentana) / 2;
+		frame.setBounds(x, y, largoVentana, anchoVentana);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.addKeyListener(this);
@@ -89,7 +93,7 @@ public class Ventana implements KeyListener {
 		modelo = new DefaultTableModel(6,3);
 		tablaRanking.setModel(modelo);
 		
-		JPopupMenu popRanking = new JPopupMenu();
+		popRanking = new JPopupMenu();
 		popRanking.setVisible(false);
 		popRanking.add(tablaRanking);
 		
@@ -112,14 +116,14 @@ public class Ventana implements KeyListener {
 		
 		/*El popUp del ranking se abre haciendo click en la pantalla, para ocultarlo hacer click nuevamente
 		 *no se muestra si el ranking esta vacio*/
-		cargarRanking();
+
 		frame.getContentPane().addMouseListener(new MouseAdapter() { 
 			public void mouseClicked(MouseEvent e) {
 				Ranking ranking = logica.getRanking();
 				
 				if(!popRanking.isVisible() && ranking.getSize() > 0) {
+					cargarRanking();
 					popRanking.setLocation(e.getXOnScreen(), e.getYOnScreen());
-					popRanking.setVisible(true);
 				}
 				else{
 					popRanking.setVisible(false);
@@ -182,6 +186,12 @@ public class Ventana implements KeyListener {
 				modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );
 			}
 		}
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (screenSize.width - popRanking.getWidth())/2;
+		int y = (screenSize.height - popRanking.getHeight())/2;
+		popRanking.setLocation(x, y);
+		popRanking.setVisible(true);
 	}
 
 	//Modifica el texto de la etiqueta del puntaje
