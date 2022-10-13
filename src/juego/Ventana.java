@@ -5,14 +5,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class Ventana implements KeyListener {
 
-	private int largoVentana = 750;
-	private int anchoVentana = 850;
+	private int largoVentana = 600;
+	private int anchoVentana = 600;
 	private Logica logica;
 
 	private JLabel puntaje;
@@ -21,7 +24,19 @@ public class Ventana implements KeyListener {
 	private JPopupMenu popRanking;
 	
 	public void initialize() {
-		int tamCelda = 28;
+		
+		Font fuente = null;
+		
+		try {
+			fuente = Font.createFont(Font.TRUETYPE_FONT, new File("src/archivos/retroComputer.ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(fuente);
+		} catch (IOException|FontFormatException e) {
+		     //Handle exception
+			e.printStackTrace();
+		}
+		
+		int tamCelda = 20;
 		
 		//Creamos el frame de la ventana
 		frame = new JFrame();
@@ -48,6 +63,7 @@ public class Ventana implements KeyListener {
 		
 		//Creamos el menu para mostrar puntaje, tiempo y el ranking, se incluye en el frame
 		JMenuBar menuBar = new JMenuBar();
+		
 		menuBar.setBackground(Color.BLACK);
 		menuBar.setBorder(new EmptyBorder(0, anchoVentana/5, 0, anchoVentana/5));
 		
@@ -57,13 +73,13 @@ public class Ventana implements KeyListener {
 		Mpuntaje.setEnabled(false);
 		Mpuntaje.setBackground(Color.BLACK);
 		Mpuntaje.setForeground(Color.WHITE);
-		Mpuntaje.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		Mpuntaje.setFont(fuente.deriveFont(15f));
 		menuBar.add(Mpuntaje);
 
 		puntaje = new JLabel("0");
 		puntaje.setBackground(Color.BLACK);
 		puntaje.setForeground(Color.WHITE);
-		puntaje.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		puntaje.setFont(fuente.deriveFont(15f));
 		menuBar.add(puntaje);
 		
 		JMenuItem Mtiempo = new JMenuItem("TIEMPO: ");
@@ -72,13 +88,13 @@ public class Ventana implements KeyListener {
 		Mtiempo.setEnabled(false);
 		Mtiempo.setBackground(Color.BLACK);
 		Mtiempo.setForeground(Color.WHITE);
-		Mtiempo.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		Mtiempo.setFont(fuente.deriveFont(15f));
 		menuBar.add(Mtiempo);
 		
 		JLabel t = new JLabel("00:00:00");
 		t.setBackground(Color.BLACK);
 		t.setForeground(Color.WHITE);
-		t.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		t.setFont(fuente.deriveFont(15f));
 		menuBar.add(t);
 		
 		frame.setJMenuBar(menuBar);
@@ -86,7 +102,7 @@ public class Ventana implements KeyListener {
 		//tabla y popUp del ranking
 		JTable tablaRanking = new JTable();
 		tablaRanking.setForeground(Color.WHITE);
-		tablaRanking.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		tablaRanking.setFont(fuente.deriveFont(10f));
 		tablaRanking.setBackground(Color.DARK_GRAY);
 		tablaRanking.setEnabled(false);
 		
@@ -131,7 +147,14 @@ public class Ventana implements KeyListener {
 			}
 			
 		});
-		
+		JPanel aboutPanel = new JPanel();
+		aboutPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		aboutPanel.setPreferredSize(new Dimension(frame.getWidth(), 40));
+		aboutPanel.setLayout(new GridBagLayout());
+		JLabel aboutLabel = new JLabel("<html>Made by VIVIDOS INC.: Martina Asteasuain, Romina García <br>Rocio Zentrigen y Thomas Mintzer.</html>");
+		aboutPanel.setBackground(Color.black);
+		aboutPanel.add(aboutLabel);
+		frame.add(aboutPanel, BorderLayout.SOUTH);
 	}
 
 	@Override 
