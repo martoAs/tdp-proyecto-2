@@ -218,18 +218,23 @@ public class Ventana implements KeyListener {
 		
 	}
 
-	//Accede a ranking para cargar los datos de los jugadores en la tabla del PopUp ranking
+	//Accede a ranking para cargar los datos de los jugadores en la tabla 
 	public void cargarRanking() {
 		
 		Ranking ranking = logica.getRanking();
 		if(ranking.getSize() > 0) {
 			if(popRanking.getComponentCount() == 1) popRanking.remove(0); 
+			UIManager.put("JSrollPane.backgroud", Color.DARK_GRAY);
 			popRanking.add(new JScrollPane(tablaRanking));
 			
-			//Obtenemos los jugadores de la clase Ranking y los agregamos a la tabla si no estaban 
-			if(ranking.existeArchivo())
-				ranking = ranking.abrir();
-				int agregados = modelo.getRowCount(); 
+			if(ranking.existeArchivo()) ranking = ranking.abrir();
+			
+			int agregados = modelo.getRowCount();  
+			if(ranking.getSize() == 5) {
+				modelo.setRowCount(0);
+				agregados = 0; //Si el size del ranking es algun jugador se sobreescribe
+			}
+				
 			for(int i= agregados; i < ranking.getSize(); i++) {
 				Jugador jugador = ranking.getJugador(i);
 				modelo.addRow(new Object[] {jugador.getNombre(), jugador.getPuntaje(), jugador.getTiempo()} );

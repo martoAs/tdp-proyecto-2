@@ -40,14 +40,13 @@ public class Criatura extends Thread {
 		case 3:
 			direccion = 'd';
 			break;
-		}  
+		}   
 	}
 	
 	public void elegirPosicionCriatura(Map<Celda,Integer> posNoPoner) {
 		/* Elegimos donde comienza la criatura aleatoriamente entre las posiciones sin ocupar.
-		 * La criatura siempre comienza como tres bloques horizontales, se utiliza la misma inicializacion 
-		 * para todas las posiciones (cabeza - cuerpo) excepto para la izquierda (cuerpo - cabeza)
-		 * pues se perderia el juego */
+		 * La criatura siempre comienza como tres bloques verticales u horizontales segun la direccion en la que 
+		 * se mueva. */
 		
 		Random random = new Random();
 		
@@ -58,23 +57,36 @@ public class Criatura extends Thread {
 			  posx_cabeza =  random.nextInt(19);
 			  posy_cabeza =  random.nextInt(19);
 		 };
-
-		if(direccion == 'd') {
-			cuerpo.addFirst(controlador.getCelda(posx_cabeza,posy_cabeza));
-			cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
-			cuerpo.addLast(controlador.getCelda(posx_cabeza-1,posy_cabeza));
-			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
-			cuerpo.addLast(controlador.getCelda(posx_cabeza-2,posy_cabeza));
-			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
+		 
+		int posx_cuerpo = posx_cabeza+1; //Posiciones para izquierda
+		int posy_cuerpo = posy_cabeza;
+		int posx_cola = posx_cabeza+2;
+		int posy_cola = posy_cabeza;
+		switch(direccion) {
+		case 'd':
+			posx_cuerpo = posx_cabeza-1; //Las posiciones en y se corresponden con las inicializadas
+			posx_cola = posx_cabeza-2;
+			break;
+		case 'w':
+			posx_cuerpo = posx_cabeza;
+			posy_cuerpo = posy_cabeza+1;
+			posx_cola = posx_cabeza;
+			posy_cuerpo = posy_cabeza+2;
+			break;
+		case 's':
+			posx_cuerpo = posx_cabeza;
+			posy_cuerpo = posy_cabeza-1;
+			posx_cola = posx_cabeza;
+			posy_cola = posy_cabeza-2;
+			break;
 		}
-		else {
-			cuerpo.addFirst(controlador.getCelda(posx_cabeza,posy_cabeza));
-			cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
-			cuerpo.addLast(controlador.getCelda(posx_cabeza+1,posy_cabeza));
-			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
-			cuerpo.addLast(controlador.getCelda(posx_cabeza+2,posy_cabeza));
-			cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
-		}
+		
+		cuerpo.addFirst(controlador.getCelda(posx_cabeza,posy_cabeza));
+		cuerpo.getFirst().setOcupada(graficos.getImagenCabeza());
+		cuerpo.addLast(controlador.getCelda(posx_cuerpo,posy_cuerpo));
+		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
+		cuerpo.addLast(controlador.getCelda(posx_cola,posy_cola));
+		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 	}
 	
 	@SuppressWarnings("deprecation")

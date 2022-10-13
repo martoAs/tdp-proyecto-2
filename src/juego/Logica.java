@@ -91,6 +91,8 @@ public class Logica {
 
 	}
 	
+	/*Lee los archivos de los niveles y segun este inicializa el tablero de celdas y un mapeo de celdas de entre 
+	 * las que no puede elegir la criatura para comenzar */
 	private void iniciarNivel(int nivel, int tam) {
 		Path archivoNivel = Path.of(archivos.get(nivel));
 		List<String> filas; //Cada arreglo tiene una fila
@@ -112,7 +114,7 @@ public class Logica {
 							
 							int max = filas.size()-1;
 							switch(criatura.getDireccion()) {
-							case 'a':
+							case 'a': //dos a izq pared, cuatro a derecha
 								if(col>0) posImposibles.put(tablero[col-1][fila],1);
 								if(col-1>0) posImposibles.put(tablero[col-2][fila],1);
 								if(col<19) posImposibles.put(tablero[col+1][fila],1);
@@ -120,7 +122,7 @@ public class Logica {
 								if(col+2<19) posImposibles.put(tablero[col+3][fila],1);
 								if(col+3<19) posImposibles.put(tablero[col+4][fila],1);
 								break;
-							case 'd':
+							case 'd': //dos a derecha pared, cuatro a izq
 								if(col<19) posImposibles.put(tablero[col+1][fila],1);
 								if(col<18) posImposibles.put(tablero[col+2][fila],1);
 								if(col>0) posImposibles.put(tablero[col-1][fila],1);
@@ -128,7 +130,7 @@ public class Logica {
 								if(col>2) posImposibles.put(tablero[col-3][fila],1);
 								if(col>3) posImposibles.put(tablero[col-4][fila],1);
 								break;
-							case 'w':
+							case 'w': //dos arriba pared, cuatro abajo
 								if(fila>0) posImposibles.put(tablero[col][fila-1],1);
 								if(fila>1) posImposibles.put(tablero[col][fila-2],1);
 								if(fila<max) posImposibles.put(tablero[col][fila+1],1);
@@ -136,7 +138,7 @@ public class Logica {
 								if(fila<max-2) posImposibles.put(tablero[col][fila+3],1);
 								if(fila<max-3) posImposibles.put(tablero[col][fila+4],1);
 							    break;
-							case 's':
+							case 's': //dos abajo pared, cuatro arriba
 								if(fila>0) posImposibles.put(tablero[col][fila-1],1);
 								if(fila>1) posImposibles.put(tablero[col][fila-2],1);
 								if(fila>2) posImposibles.put(tablero[col][fila-3],1);
