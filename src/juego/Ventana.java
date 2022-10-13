@@ -224,8 +224,11 @@ public class Ventana implements KeyListener {
 		Ranking ranking = logica.getRanking();
 		if(ranking.getSize() > 0) {
 			if(popRanking.getComponentCount() == 1) popRanking.remove(0); 
-			UIManager.put("JSrollPane.backgroud", Color.DARK_GRAY);
-			popRanking.add(new JScrollPane(tablaRanking));
+			JScrollPane scroll = new JScrollPane(tablaRanking);
+			scroll.setOpaque(true);
+			scroll.setBackground(Color.DARK_GRAY);
+			scroll.setPreferredSize(new Dimension(anchoVentana/2, anchoVentana/6));
+			popRanking.add(scroll);
 			
 			if(ranking.existeArchivo()) ranking = ranking.abrir();
 			

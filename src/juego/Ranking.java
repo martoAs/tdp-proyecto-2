@@ -54,7 +54,7 @@ public class Ranking implements Serializable {
 			resultado = true;
 		}
 		else {
-			Jugador jugMenosPuntaje = listaJugadores.get(0);
+			Jugador jugMenosPuntaje = listaJugadores.get(listaJugadores.size()-1);
 			if(jug.getPuntaje() > jugMenosPuntaje.getPuntaje() ||
 			   (jug.getPuntaje() == jugMenosPuntaje.getPuntaje() && jug.getTiempo().compareTo(jugMenosPuntaje.getTiempo())<0) ) {
 				listaJugadores.remove(jugMenosPuntaje);
