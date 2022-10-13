@@ -255,11 +255,12 @@ public class Logica {
 			iniciarNivel(nivel, tam);
 		else{
 			mostrarPuntajes();
+			if(ventana.reiniciarJuego()==0) {
 			puntaje = 0;
 			time = new Reloj(labelReloj);
 			nivel = 0;
 			iniciarNivel(nivel, tam);
-			empezarJuego();
+			empezarJuego();}
 		}
 	}
 	

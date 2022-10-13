@@ -3,12 +3,15 @@ package juego;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
@@ -45,6 +48,16 @@ public class Ventana implements KeyListener {
 		
 		//Creamos el frame de la ventana
 		frame = new JFrame();
+		frame.setResizable(false);
+		BufferedImage icono;
+		File ic = new File("src/images/lsd1.jpg");
+		try {
+			icono= ImageIO.read(ic);
+			frame.setIconImage(icono);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		frame.setTitle("THE CREATURE");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screenSize.width - largoVentana) / 2;  
 		int y = (screenSize.height - anchoVentana) / 2;
@@ -280,6 +293,21 @@ public class Ventana implements KeyListener {
 		
 		String nombreJugador = JOptionPane.showInputDialog(frame, ventanaNombre, "Fin del juego!", JOptionPane.PLAIN_MESSAGE);
 		return nombreJugador;
+	}
+	
+	public int reiniciarJuego() {
+		UIManager.put("OptionPane.background", Color.DARK_GRAY);
+		UIManager.put("Panel.background", Color.DARK_GRAY); 
+		UIManager.put("Button.background", Color.LIGHT_GRAY);
+		
+		JPanel ventanaReinicio = new JPanel(new FlowLayout());
+		ventanaReinicio.setBackground(Color.DARK_GRAY);
+		JLabel mensaje = new JLabel("Desea reiniciar el juego?");
+		mensaje.setForeground(Color.WHITE);
+		ventanaReinicio.add(mensaje);
+		int opcionElegida = JOptionPane.showConfirmDialog(frame,ventanaReinicio,"Elija una opcion...",JOptionPane.YES_NO_OPTION);
+		popRanking.setVisible(false);
+		return opcionElegida;
 	}
 }
 
