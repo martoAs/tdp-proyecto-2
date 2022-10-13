@@ -54,8 +54,17 @@ public class Celda extends JLabel{
     }
 
     public void desocupar(){
-        if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
-        else setImagen("/images/celda2.jpg");
+        if(consumible!= null) {
+            if(xenTablero%2 != yenTablero%2)
+                setImagen(consumible.getSkin1());
+            else
+                setImagen(consumible.getSkin2());
+        }
+        else{
+            if(xenTablero%2 != yenTablero%2) setImagen("/images/celda1.jpg");
+            else setImagen("/images/celda2.jpg");
+
+        }
         ocupada = false;
     }
 

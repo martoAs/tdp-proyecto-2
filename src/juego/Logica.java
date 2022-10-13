@@ -114,7 +114,7 @@ public class Logica {
 							
 							int max = filas.size()-1;
 							switch(criatura.getDireccion()) {
-							case 'a': //dos a izq pared, cuatro a derecha
+							case 'a': //dos a izq pared (no spawnee en pared), cuatro a derecha (te de el tiempo de reaccion pa no morir)
 								if(col>0) posImposibles.put(tablero[col-1][fila],1);
 								if(col-1>0) posImposibles.put(tablero[col-2][fila],1);
 								if(col<19) posImposibles.put(tablero[col+1][fila],1);
@@ -275,19 +275,19 @@ public class Logica {
 				celdasConConsumible.remove(random);
 				
 				
-				while(tablero[primero.getXenTablero()][primero.getYenTablero()].estaOcupada()==true){
-					
-					if(celdasConConsumible.size() == 0)
+				while(tablero[primero.getXenTablero()][primero.getYenTablero()].estaOcupada()==true && celdasConConsumible.size() > 0){
+
+					celdasConConsumible.add(primero);
+
+					if(celdasConConsumible.size() <= 0)
 						random = 0;
 					else {
 						random = rand.nextInt(celdasConConsumible.size());
 						primero = celdasConConsumible.get(random);
 						celdasConConsumible.remove(random);
 					}
-					
-					random = rand.nextInt(celdasConConsumible.size());
-					primero = celdasConConsumible.get(random);
-					celdasConConsumible.remove(random);
+
+
 				}
 				
 

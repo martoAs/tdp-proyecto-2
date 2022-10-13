@@ -163,18 +163,22 @@ public class Ventana implements KeyListener {
 		aboutPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		aboutPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
 		GridBagLayout gbl_aboutPanel = new GridBagLayout();
-		gbl_aboutPanel.rowWeights = new double[]{1.0};
-		gbl_aboutPanel.columnWeights = new double[]{1.0, 0.0};
+		gbl_aboutPanel.rowWeights = new double[]{1.0,1.0};
+		gbl_aboutPanel.columnWeights = new double[]{1.0};
 		aboutPanel.setLayout(gbl_aboutPanel);
 		aboutPanel.setBackground(Color.black);
 		
-		JLabel aboutLabel = new JLabel("<html>Made by VIVIDOS INC.: Martina Asteasuain, Romina Garcia <br>Rocio Zentrigen y Thomas Mintzer.</html>");
-		aboutLabel.setFont(fuente.deriveFont(15f));
+		JLabel aboutLabel = new JLabel("Made by VIVIDOS INC.: Martina Asteasuain, Romina Garcia");
+		aboutLabel.setFont(fuente.deriveFont(11f));
 		aboutLabel.setForeground(Color.GRAY);
+		JLabel aboutLabel2 = new JLabel(" Rocio Zentrigen y Thomas Mintzer. Imagenes por Paz Berterreix");
+		aboutLabel2.setFont(fuente.deriveFont(11f));
+		aboutLabel2.setForeground(Color.GRAY);
 		GridBagConstraints gbc_aboutLabel = new GridBagConstraints();
-		gbc_aboutLabel.gridx = 1;
-		gbc_aboutLabel.gridy = 0;
-		aboutPanel.add(aboutLabel, gbc_aboutLabel);
+		gbc_aboutLabel.gridx = 0;
+		gbc_aboutLabel.gridy = 1;
+		aboutPanel.add(aboutLabel2,gbc_aboutLabel);
+		aboutPanel.add(aboutLabel);
 		frame.getContentPane().add(aboutPanel, BorderLayout.SOUTH);
 		
 		logica.empezarJuego();
