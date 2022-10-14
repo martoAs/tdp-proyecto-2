@@ -11,7 +11,6 @@ public abstract class Consumible {
 	public void afectarJugador(Criatura criatura) {
 		criatura.agrandarCriatura(size);
 		criatura.getControlador().sumarPuntaje(puntaje);
-		
 		criatura.consumibleComido();
 	}
 

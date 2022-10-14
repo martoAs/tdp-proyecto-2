@@ -27,6 +27,7 @@ public class Ventana implements KeyListener {
 	private JFrame frame;
 	private JPopupMenu popRanking;
 	private JTable tablaRanking;
+	private JLabel t;
 	private DefaultTableModel modelo;
 	
 	/**
@@ -109,7 +110,7 @@ public class Ventana implements KeyListener {
 		Mtiempo.setFont(fuente.deriveFont(15f));
 		menuBar.add(Mtiempo);
 		
-		JLabel t = new JLabel("00:00:00");
+		t = new JLabel("00:00:00");
 		t.setBackground(Color.BLACK);
 		t.setForeground(Color.WHITE);
 		t.setFont(fuente.deriveFont(15f));
@@ -307,6 +308,8 @@ public class Ventana implements KeyListener {
 		ventanaReinicio.add(mensaje);
 		int opcionElegida = JOptionPane.showConfirmDialog(frame,ventanaReinicio,"Elija una opcion...",JOptionPane.YES_NO_OPTION);
 		popRanking.setVisible(false);
+		t.setText("00:00:00");
+		puntaje.setText("0");
 		return opcionElegida;
 	}
 }

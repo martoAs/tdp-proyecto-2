@@ -151,6 +151,10 @@ public class Logica {
 						}
 						case '.' -> {
 							Celda fondo = tablero[col][fila];
+							/*if(fondo.getConsumible()!=null) {
+							
+								fondo.setConsumible(null);
+							}*/
 							fondo.desocupar();
 						}
 						case 'r' -> {
@@ -245,6 +249,12 @@ public class Logica {
 		}
 		
 		ventana.cargarRanking();
+		if(ventana.reiniciarJuego()==0) {
+			puntaje = 0;
+			time = new Reloj(labelReloj);
+			nivel = 0;
+			iniciarNivel(nivel, tam);
+			empezarJuego();}
 	}
 	
 	public void terminoNivel(){
@@ -255,12 +265,6 @@ public class Logica {
 			iniciarNivel(nivel, tam);
 		else{
 			mostrarPuntajes();
-			if(ventana.reiniciarJuego()==0) {
-			puntaje = 0;
-			time = new Reloj(labelReloj);
-			nivel = 0;
-			iniciarNivel(nivel, tam);
-			empezarJuego();}
 		}
 	}
 	

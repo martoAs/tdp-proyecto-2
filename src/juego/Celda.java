@@ -101,10 +101,12 @@ public class Celda extends JLabel{
 
     public void setConsumible(Consumible consumible) {
         this.consumible = consumible;
-        if(xenTablero%2 != yenTablero%2) 
-        	setImagen(consumible.getSkin1());
-        else 
-        	setImagen(consumible.getSkin2());
+        if(consumible!=null) {
+        	if(xenTablero%2 != yenTablero%2) 
+            	setImagen(consumible.getSkin1());
+            else 
+            	setImagen(consumible.getSkin2());
+        }
         
     }
     
