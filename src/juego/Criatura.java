@@ -88,7 +88,8 @@ public class Criatura extends Thread {
 		cuerpo.addLast(controlador.getCelda(posx_cola,posy_cola));
 		cuerpo.getLast().setOcupada(graficos.getImagenCuerpo());
 	}
-	
+
+	//Hilo que mantiene el movimiento de la criatura y si termina el juego actua aordemente
 	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
@@ -163,6 +164,7 @@ public class Criatura extends Thread {
 		}
 
 		nuevaCabeza.efecto(this);
+		//Mueve solo si no se choco a una pared o a si misma
 		if(estaViva){
 			nuevaCabeza.setOcupada(graficos.getImagenCabeza());
 			cuerpo.getFirst().setOcupada(graficos.getImagenCuerpo());
@@ -175,6 +177,7 @@ public class Criatura extends Thread {
 			}
 
 		}
+		//Si termino el juego borra la cariatura
 		if(!juegoAndando) {
 			for(Celda c: cuerpo){
 				c.desocupar();
@@ -199,10 +202,7 @@ public class Criatura extends Thread {
 	public Logica getControlador() {
 		return controlador;
 	}
-	
-	public void cambiarPuntaje(int puntos) {
-		controlador.sumarPuntaje(puntos);
-	}
+
 	
 	public void consumibleComido() {
 		controlador.ponerConsumible();

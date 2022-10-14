@@ -27,7 +27,7 @@ public class Ventana implements KeyListener {
 	private JFrame frame;
 	private JPopupMenu popRanking;
 	private JTable tablaRanking;
-	private JLabel t;
+	private JLabel tiempo;
 	private DefaultTableModel modelo;
 	
 	/**
@@ -110,11 +110,11 @@ public class Ventana implements KeyListener {
 		Mtiempo.setFont(fuente.deriveFont(15f));
 		menuBar.add(Mtiempo);
 		
-		t = new JLabel("00:00:00");
-		t.setBackground(Color.BLACK);
-		t.setForeground(Color.WHITE);
-		t.setFont(fuente.deriveFont(15f));
-		menuBar.add(t);
+		tiempo = new JLabel("00:00:00");
+		tiempo.setBackground(Color.BLACK);
+		tiempo.setForeground(Color.WHITE);
+		tiempo.setFont(fuente.deriveFont(15f));
+		menuBar.add(tiempo);
 		
 		menuBar.add(Box.createGlue()); //Para que ranking quede a la derecha
 		JMenuItem Mranking = new JMenuItem("Ver Ranking");
@@ -158,7 +158,7 @@ public class Ventana implements KeyListener {
 		frame.setJMenuBar(menuBar);
 		
 		//Insertamos las celdas al panel del juego
-		logica = new Logica(tamCelda, this, t);
+		logica = new Logica(tamCelda, this, tiempo);
 		
 		for(int i = 0; i<20; i++){
 			for(int j = 0; j <20 ; j++){
@@ -280,7 +280,7 @@ public class Ventana implements KeyListener {
 	}
 	
 	//Muestra la ventana en la que el usuario ingresa su nombre para ingresar al ranking
-	public String ingresarNombre() {
+	public String ingresarNombre(String msg) {
 		//Cambiamos variables del JOptionPane y creamos el JPanel para el JOptionPane
 		UIManager.put("OptionPane.background", Color.DARK_GRAY);
 		UIManager.put("Panel.background", Color.DARK_GRAY); 
@@ -291,8 +291,11 @@ public class Ventana implements KeyListener {
 		JLabel mensaje = new JLabel("Ingrese su nombre para participar del ranking: ");
 		mensaje.setForeground(Color.WHITE);
 		ventanaNombre.add(mensaje);
+
+
+
 		
-		String nombreJugador = JOptionPane.showInputDialog(frame, ventanaNombre, "Fin del juego!", JOptionPane.PLAIN_MESSAGE);
+		String nombreJugador = JOptionPane.showInputDialog(frame, ventanaNombre, msg, JOptionPane.PLAIN_MESSAGE);
 		return nombreJugador;
 	}
 	
@@ -308,7 +311,7 @@ public class Ventana implements KeyListener {
 		ventanaReinicio.add(mensaje);
 		int opcionElegida = JOptionPane.showConfirmDialog(frame,ventanaReinicio,"Elija una opcion...",JOptionPane.YES_NO_OPTION);
 		popRanking.setVisible(false);
-		t.setText("00:00:00");
+		tiempo.setText("00:00:00");
 		puntaje.setText("0");
 		return opcionElegida;
 	}
