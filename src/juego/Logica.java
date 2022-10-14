@@ -95,6 +95,10 @@ public class Logica {
 	private void iniciarNivel(int nivel, int tam) {
 		Path archivoNivel = Path.of(archivos.get(nivel));
 		List<String> filas; //Cada arreglo tiene una fila
+
+		//Creamos la lista con los consumibles que tendra el nivel
+		celdasConConsumible = new ArrayList<>();
+
 		try {
 			criatura = new Criatura(this);
 			criatura.elegirDireccion();
@@ -103,6 +107,7 @@ public class Logica {
 			Map<Celda,Integer> posImposibles = new HashMap<Celda,Integer>();
 
 			for(int fila = 0; fila < filas.size(); fila++) {
+
 				for(int col = 0; col < 20; col++) {
 					//Las celdas con consumible se guardan en un listado, de modo que pueda mantener la posición y el consumible asociado a un lugar
 					switch(filas.get(fila).charAt(col)) {
@@ -252,6 +257,11 @@ public class Logica {
 			puntaje = 0;
 			time = new Reloj(labelReloj);
 			nivel = 0;
+			for(int i = 0; i < 20; i++){
+				for(int j = 0; j< 20; j++){
+					if(tablero[i][j].getConsumible()!= null) tablero[i][j].sacarConsumible();
+				}
+			}
 			iniciarNivel(nivel, tam);
 			empezarJuego();
 		}

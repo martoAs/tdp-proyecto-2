@@ -110,7 +110,9 @@ public class Celda extends JLabel{
         
     }
     
-
+    public void sacarConsumible(){
+        consumible = null;
+    }
     
     public int getXenTablero(){
         return xenTablero;
