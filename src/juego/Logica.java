@@ -237,7 +237,8 @@ public class Logica {
 		
 		
 	}
-	
+
+	//Al finalizar el jeugo muestra el ranking y pregunta si se quiere jugar de nuevo
 	public void mostrarPuntajes() {
 		time.setFinished(true);
 		String mensaje = "";
