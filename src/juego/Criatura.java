@@ -134,6 +134,7 @@ public class Criatura extends Thread {
 		Celda borrar = cuerpo.getLast();
 		int sgtX, sgtY;
 		
+		//De acuerdo a la direccion le pide al tablero la proxima celda y cambia la cabeza
 		switch (direccion){
 			case 'a': {
 

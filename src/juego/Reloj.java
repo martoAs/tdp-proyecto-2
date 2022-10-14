@@ -5,9 +5,9 @@ import java.sql.Time;
 import javax.swing.JLabel;
 
 public class Reloj extends Thread{
-	boolean finished;
-	JLabel label;
-	Time tiempo;
+	protected boolean finished;
+	protected JLabel label;
+	protected Time tiempo;
 	
 	public Reloj(JLabel l) {
 		finished = false;

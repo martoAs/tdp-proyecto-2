@@ -26,7 +26,6 @@ public class Logica {
 	protected Criatura criatura;
 	protected Ranking ranking;
 	protected Celda[][] tablero;
-	protected Stack<Consumible> pila;
 	protected Ventana ventana;
 	protected Reloj time;
 	
@@ -105,7 +104,7 @@ public class Logica {
 
 			for(int fila = 0; fila < filas.size(); fila++) {
 				for(int col = 0; col < 20; col++) {
-
+					//Las celdas con consumible se guardan en un listado, de modo que pueda mantener la posición y el consumible asociado a un lugar
 					switch(filas.get(fila).charAt(col)) {
 						case '#' -> {
 							Celda pared = tablero[col][fila];
@@ -254,7 +253,8 @@ public class Logica {
 			time = new Reloj(labelReloj);
 			nivel = 0;
 			iniciarNivel(nivel, tam);
-			empezarJuego();}
+			empezarJuego();
+		}
 	}
 	
 	public void terminoNivel(){
@@ -272,6 +272,10 @@ public class Logica {
 		return ranking;
 	}
 	
+	/*
+	 * Recupera un consumible random del listado de celdasConConsumible, lo coloca en el tablero y lo remueve del listado, cambiando
+	 * el rango del entero a generarse
+	 */
 	public void ponerConsumible() {
 		if(celdasConConsumible.size() > 0) {
 				Random rand = new Random();
@@ -280,6 +284,9 @@ public class Logica {
 				celdasConConsumible.remove(random);
 				
 				
+				/*
+				 * Maneja el comportamiento en caso de que el consumible aparezca por encima del cuerpo de la serpiente
+				 */
 				while(tablero[primero.getXenTablero()][primero.getYenTablero()].estaOcupada()==true && celdasConConsumible.size() > 0){
 
 					celdasConConsumible.add(primero);

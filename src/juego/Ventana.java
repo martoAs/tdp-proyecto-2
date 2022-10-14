@@ -252,7 +252,7 @@ public class Ventana implements KeyListener {
 			
 			int agregados = modelo.getRowCount();  
 			if(ranking.getSize() == 5) {
-				modelo.setRowCount(0);
+				modelo.setRowCount(0); //Limpia cada que se abre
 				agregados = 0; //Si el size del ranking es algun jugador se sobreescribe
 			}
 				

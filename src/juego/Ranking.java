@@ -46,6 +46,10 @@ public class Ranking implements Serializable {
 		});
 	}
 	
+	/*
+	 * En caso de que el numero de jugadores sea menor al maximo lo agrega y ordena
+	 * en caso contrario compara con el menor de la lista y e intercambia dadas las condiciones 
+	*/
 	public boolean agregarJugador(Jugador jug) {
 		boolean resultado = false;
 		if(listaJugadores.size() < NUMERO_JUGADORES) {
