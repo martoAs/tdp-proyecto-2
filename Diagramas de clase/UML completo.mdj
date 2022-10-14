@@ -2326,7 +2326,7 @@
 											"top": 265,
 											"width": 167,
 											"height": 13,
-											"text": "+tablaRaking: JTable",
+											"text": "-tablaRaking: JTable",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11838,6 +11838,7 @@
 								"$ref": "AAAAAAGDWzIWW1JRi60="
 							},
 							"name": "tablaRaking",
+							"visibility": "private",
 							"type": "JTable"
 						},
 						{
