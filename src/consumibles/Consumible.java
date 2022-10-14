@@ -7,7 +7,9 @@ public abstract class Consumible {
 	protected int puntaje;
 	protected String skin1;
 	protected String skin2;
-	
+
+
+	//Al ser agarrado por la criatura le cambia el puntaje y el tamanio
 	public void afectarJugador(Criatura criatura) {
 		criatura.agrandarCriatura(size);
 		criatura.getControlador().sumarPuntaje(puntaje);

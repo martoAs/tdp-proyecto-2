@@ -155,10 +155,6 @@ public class Logica {
 						}
 						case '.' -> {
 							Celda fondo = tablero[col][fila];
-							/*if(fondo.getConsumible()!=null) {
-							
-								fondo.setConsumible(null);
-							}*/
 							fondo.desocupar();
 						}
 						case 'r' -> {
@@ -244,7 +240,10 @@ public class Logica {
 	
 	public void mostrarPuntajes() {
 		time.setFinished(true);
-		String nombre = ventana.ingresarNombre();
+		String mensaje = "";
+		if(criatura.getEstaViva()) mensaje = "GANASTE! :D";
+		else mensaje = "Perdiste...";
+		String nombre = ventana.ingresarNombre(mensaje);
 		if(nombre != null && nombre.length() != 0) { //El usuario presiono aceptar e ingreso un nombre
 			Jugador jugador = new Jugador(nombre, puntaje, time.getTiempo().toString());
 			ranking.agregarJugador(jugador);
